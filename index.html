@@ -14,39 +14,21 @@
 
 <canvas id="gameCanvas" data-type="game-canvas"></canvas>
 
+<script src="js/pubvars.js"></script>
+<script src="js/game.js"></script>
+
 <script>
     console.log('Hello World. You must Rescue the Prince. 🤴');
 
-    // initialize some variables
-    // TODO move this into a separate file
-    tileSize = 48; // pixels tall and wide for a tile
-    numTiles_x = 21; // tiles wide for the game area
-    numTiles_y = 11; // tiles tall for the game area
-
-    // initialize some pictures
-    // TODO move this into a separate file
-    princess = new Image();
-    princess.src = 'images/princess.png';
-
-    rock = new Image();
-    rock.src = 'images/rock.png';
-
-    // set up the canvas
-    // TODO move this into a separate file
-    canvas = document.querySelector("canvas");
-    ctx = canvas.getContext("2d");
-
-    canvas.width = tileSize * numTiles_x;
-    canvas.height = tileSize * numTiles_y;
-    canvas.style.width = canvas.width + 'px';
-    canvas.style.height = canvas.height + 'px';
-    ctx.imageSmoothingEnabled = false;
+    setupCanvas(); // game.js
 
     // draw the princess and the rock
     // drawing actual objects will be part of the object definitions
     window.onload = function(){
         ctx.drawImage(princess, 0, 0, 24, 24, 0, 0, 48, 48);
         ctx.drawImage(rock, 0, 0, 24, 24, 0, 48, 48, 48);
+
+        showTitle() // game.js
     }
 
 
