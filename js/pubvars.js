@@ -14,5 +14,18 @@ princess.src = 'images/princess.png';
 rock = new Image();
 rock.src = 'images/rock.png';
 
+sprCreatures = new Image();
+sprCreatures.src = 'images/oryx_16bit_fantasy_creatures_trans.png';
+sprWorld = new Image();
+sprWorld.src = 'images/oryx_16bit_fantasy_world_trans.png';
+
+// Sprite class defined in js/sprite.js
+// each creature sprite has 2 frames (labeled 1 and 2) in subsequent rows
+sprPrincess1 = new Sprite(3, 12, 24, 24, sprCreatures);
+sprPrincess2 = new Sprite(4, 12, 24, 24, sprCreatures);
+
+// world sprites
+sprStoneBlock = new Sprite(1, 1, 24, 24, sprWorld);
+
 // colors
 color_white = "#ffffff";
