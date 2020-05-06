@@ -2,6 +2,10 @@
 // debug mode? used to toggle debug messages?
 debugMode = true;
 
+// gameclock used to count the number of ms that have passed
+tickInterval = 15 // ms
+gameclock = 0; // also in ms
+
 // initialize some variables
 tileSize = 48; // pixels tall and wide for a tile
 numTiles_x = 21; // tiles wide for the game area

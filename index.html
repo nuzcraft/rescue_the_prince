@@ -15,26 +15,25 @@
 <canvas id="gameCanvas" data-type="game-canvas"></canvas>
 
 <script src="js/sprite.js"></script>
+<script src="js/solid.js"></script>
+<script src="js/entity.js"></script>
 <script src="js/pubvars.js"></script>
 <script src="js/game.js"></script>
 
 <script>
     console.log('Hello World. You must Rescue the Prince. 🤴');
 
-    setupCanvas(); // game.js
+    stone1 = new StoneBlock(96, 450);
+    stone2 = new StoneBlock(96+48, 450);
+    player = new Player(96+24, 150);
 
-    // draw the princess and the rock
-    // drawing actual objects will be part of the object definitions
-    window.onload = function(){
-
-        sprPrincess1.draw(0, 0);
-        sprPrincess2.draw(48, 0);
-
-        sprStoneBlock.draw(0, 48);
-        sprStoneBlock.draw(48, 48);
-
+   window.onload = function(){
         showTitle() // game.js
     }
+
+    setInterval(tick, tickInterval); //tick() in game.js // 15 is ms
+
+    setupCanvas(); // game.js
 
 
 </script>

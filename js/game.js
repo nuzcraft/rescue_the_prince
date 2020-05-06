@@ -18,17 +18,60 @@ function showTitle() {
 
     if (debugMode) {console.log('showTitle started.')}
 
-    drawText("Rescue the Prince", 70, true, 0, canvas.height / 2, color_white);
+    drawText("Rescue the Prince", 70, true, 0, canvas.height / 2, color_white
+    , fontWeight="bold", fontStyle="italic" );
 
 }
 
-function drawText(text, size, centered, textX, textY, color){
+function drawText(text, size, centered, textX, textY, color
+    , fontWeight="", fontStyle="normal", fontVariant="", fontFamily="serif"){
+    
+    // fontStyle can be normal, italic, or oblique
+    // fontFamily can be a bunch of stuff. Easy ones are serif, monospace
+    // fontVariant can be "" or small-caps
+    // fontWeight can be "", bold, bolder, lighter, or a multiple of 100
+    if (fontStyle != "")
+        fontStyle = fontStyle + " ";
+    if (fontVariant != "")
+        fontVariant = fontVariant + " ";
+    if (fontWeight != "")
+        fontWeight = fontWeight + " ";
+    
     ctx.fillStyle = color;
-    ctx.font = size + "px sserif";
+    ctx.font = fontStyle + 
+            fontVariant +
+            fontWeight +
+            size + "px " +
+            fontFamily;
 
     if (centered) {
         textX = ((canvas.width - ctx.measureText(text).width) / 2) + textX;
     }
 
     ctx.fillText(text, textX, textY);
+}
+
+// this function will serve as the game clock, keeping time
+// for the game
+function tick() {
+    // advance the gameclock
+    gameclock = gameclock + tickInterval;
+
+    draw() //game.js
+
+    // not sure the best way to handle animations...
+    // right now, they all switch after 200 ms, but 
+    // if necessary, we can move that into each lobject individually
+    if (gameclock % 200 == 0){
+        player.animate();
+    }
+}
+
+// this function will draw the the stuff on the screen
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    stone1.draw();
+    stone2.draw();
+    player.draw(); 
 }
