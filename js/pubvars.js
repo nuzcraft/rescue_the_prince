@@ -11,13 +11,9 @@ tileSize = 48; // pixels tall and wide for a tile
 numTiles_x = 21; // tiles wide for the game area
 numTiles_y = 11; // tiles tall for the game area
 
+gravity = -8; // this is an accelleration in the -y direction
+
 // initialize some images
-princess = new Image();
-princess.src = 'images/princess.png';
-
-rock = new Image();
-rock.src = 'images/rock.png';
-
 sprCreatures = new Image();
 sprCreatures.src = 'images/oryx_16bit_fantasy_creatures_trans.png';
 sprWorld = new Image();
