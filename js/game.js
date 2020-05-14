@@ -64,7 +64,11 @@ function tick() {
     // if necessary, we can move that into each lobject individually
     if (gameclock % 200 == 0){
         player.animate();
+
+        player.tick();
     }
+
+
 }
 
 // this function will draw the the stuff on the screen
@@ -74,4 +78,26 @@ function draw() {
     stone1.draw();
     stone2.draw();
     player.draw(); 
+}
+
+// this function will take x and y values of a coordinate and return
+// whether the point is in a Solid
+function pointInSolid(x, y) {
+    // loop through all the solids
+    for (i = 0; i < solids.length; i++) {
+        // check if the x coord is in the x of the solid
+        // leans on solid.x and solid.sprite.width
+        for (j = solids[i].x; j <= solids[i].x + tileSize; j++){
+            // if the x coords match, check the y
+            if (x == j){
+                // check the y coord for a match
+                for (k = solids[i].y; k <= solids[i].y + tileSize; k++){
+                    if (y == k){
+                        return true;
+                    }
+                }
+            }
+        }
+    }
+    return false;
 }

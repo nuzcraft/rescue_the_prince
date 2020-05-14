@@ -21,15 +21,22 @@ class EntityWithSprite extends Entity{
 
     // by default, entities with sprites will be affected by gravity
     tick(){
-        // if the lower bound of the entity is not colliding with
-        // a solid, make the entity fall and increase the fall speed
-        
-        /// first, get the x and y coords directly below the middle of
-        /// the sprite (1 pixel below) and see if any solids are there
-        /// will require a defined list of solids/entities? (if we want
-        /// to collide with entities). I may just make the 'collision'
-        /// function pretty generic to handle both (since they both have
-        /// an x and y coord)
+        // move the entity down based on the vSpeed
+        this.y += this.vSpeed;
+
+        // check the lower bound of the entity (using the sprite)
+        if (!pointInSolid(this.x + (this.sprite.width / 2), this.y + this.sprite.height + 1)){
+            // if point below the entity not in a solid, increase the vSpeed
+            this.vSpeed += gravity;
+            if (this.vSpeed > maxVSpeed){
+                this.vSpeed = maxVSpeed;
+            }
+        } else {
+            // point below is in a solid, stop the fall
+            this.vSpeed = 0;
+            // TODO make sure the entity will then rest on the solid, not
+            // midway through it
+        }
     }
 }
 

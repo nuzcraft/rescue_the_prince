@@ -11,7 +11,8 @@ tileSize = 48; // pixels tall and wide for a tile
 numTiles_x = 21; // tiles wide for the game area
 numTiles_y = 11; // tiles tall for the game area
 
-gravity = -8; // this is an accelleration in the -y direction
+gravity = 2; // this is an accelleration in the -y direction
+maxVSpeed = 24; // maximum speed
 
 // initialize some images
 sprCreatures = new Image();
@@ -29,3 +30,7 @@ sprStoneBlock = new Sprite(1, 1, 24, 24, sprWorld);
 
 // colors
 color_white = "#ffffff";
+
+// global lists
+entities = [];
+solids = [];

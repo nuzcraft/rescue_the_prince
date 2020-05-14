@@ -27,6 +27,11 @@
     stone2 = new StoneBlock(96+48, 450);
     player = new Player(96+24, 150);
 
+    solids.push(stone1);
+    solids.push(stone2);
+
+    entities.push(player);
+
    window.onload = function(){
         showTitle() // game.js
     }
