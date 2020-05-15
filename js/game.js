@@ -18,6 +18,8 @@ function showTitle() {
 
     if (debugMode) {console.log('showTitle started.')}
 
+    gamestate = "title";
+
     drawText("Rescue the Prince", 70, true, 0, canvas.height / 2, color_white
     , fontWeight="bold", fontStyle="italic" );
 
@@ -54,21 +56,23 @@ function drawText(text, size, centered, textX, textY, color
 // this function will serve as the game clock, keeping time
 // for the game
 function tick() {
-    // advance the gameclock
-    gameclock = gameclock + tickInterval;
+    if (gamestate == "running") {
+        // advance the gameclock
+        gameclock = gameclock + tickInterval;
 
-    draw() //game.js
+        draw() //game.js
 
-    // not sure the best way to handle animations...
-    // right now, they all switch after 200 ms, but 
-    // if necessary, we can move that into each lobject individually
-    if (gameclock % 200 == 0){
-        player.animate();
+        // not sure the best way to handle animations...
+        // right now, they all switch after 200 ms, but 
+        // if necessary, we can move that into each object individually
+        if (gameclock % 200 == 0){
+            player.animate();
+        }
 
+        // right now, the player is the only thing that will move each
+        // frame
         player.tick();
     }
-
-
 }
 
 // this function will draw the the stuff on the screen
@@ -87,11 +91,11 @@ function pointInSolid(x, y) {
     for (i = 0; i < solids.length; i++) {
         // check if the x coord is in the x of the solid
         // leans on solid.x and solid.sprite.width
-        for (j = solids[i].x; j <= solids[i].x + tileSize; j++){
+        for (j = solids[i].x; j <= solids[i].x + solids[i].sprite.draw_width; j++){
             // if the x coords match, check the y
             if (x == j){
                 // check the y coord for a match
-                for (k = solids[i].y; k <= solids[i].y + tileSize; k++){
+                for (k = solids[i].y; k <= solids[i].y + solids[i].sprite.draw_height; k++){
                     if (y == k){
                         return true;
                     }
@@ -100,4 +104,9 @@ function pointInSolid(x, y) {
         }
     }
     return false;
+}
+
+function startGame() {
+    console.log("Starting game.");
+    gamestate = "running";
 }

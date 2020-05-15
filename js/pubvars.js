@@ -11,8 +11,8 @@ tileSize = 48; // pixels tall and wide for a tile
 numTiles_x = 21; // tiles wide for the game area
 numTiles_y = 11; // tiles tall for the game area
 
-gravity = 2; // this is an accelleration in the -y direction
-maxVSpeed = 24; // maximum speed
+gravity = 1; // this is an accelleration in the -y direction
+maxVSpeed = 10; // maximum speed for gravity stuff
 
 // initialize some images
 sprCreatures = new Image();

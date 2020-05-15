@@ -23,6 +23,9 @@
 <script>
     console.log('Hello World. You must Rescue the Prince. 🤴');
 
+    // gamestate will be used to run the game; filter specific keypresses
+    gamestate = "loading";
+
     stone1 = new StoneBlock(96, 450);
     stone2 = new StoneBlock(96+48, 450);
     player = new Player(96+24, 150);
@@ -32,8 +35,20 @@
 
     entities.push(player);
 
-   window.onload = function(){
+    window.onload = function(){
         showTitle() // game.js
+    }
+
+    // this will handle our keypresses
+    // TODO: move into different file
+    // TODO: add gamepad support
+    document.querySelector("html").onkeypress = function(e) {
+        if (gamestate == "title") {
+            startGame();
+        } else if (gamestate == "running") {
+            // w or spacebar to jump
+            if (e.key=="w" || e.key==" ") player.jump();
+        }
     }
 
     setInterval(tick, tickInterval); //tick() in game.js // tickInterval is in ms

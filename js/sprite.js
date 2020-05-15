@@ -2,12 +2,15 @@
 // 18 images per row for creature, 53? for world
 // both rows and indexes are 1-indexed (start with 1 as first entry)
 class Sprite {
-    constructor(row, index, width, height, spritesheet) {
+    constructor(row, index, width, height, spritesheet
+            , draw_width=tileSize, draw_height=tileSize) {
         this.row = row;
         this.index = index;
         this.width = width;
         this.height = height;
         this.spritesheet = spritesheet;
+        this.draw_height = draw_height;
+        this.draw_width = draw_width;
     }
 
     // pass in x and y coordinates on the screen to draw the sprite there
@@ -22,8 +25,8 @@ class Sprite {
             this.height, // height of sprite (px)
             x, // x pos to draw to on canvas
             y, // y pos to draw to on canvas
-            tileSize, // new width to draw (from pubvars.js)
-            tileSize // new height to draw (from pubvars.js)
+            this.draw_height, // new width to draw (from pubvars.js)
+            this.draw_width // new height to draw (from pubvars.js)
         )
     }
 }
