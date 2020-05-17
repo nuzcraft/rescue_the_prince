@@ -26,12 +26,17 @@
     // gamestate will be used to run the game; filter specific keypresses
     gamestate = "loading";
 
-    stone1 = new StoneBlock(96, 450);
-    stone2 = new StoneBlock(96+48, 450);
+    // lets create a floor of StoneBlocks
+    for (i = 0; i < numTiles_x * tileSize; i+=48) {
+        var stone = new StoneBlock(i, 450);
+        solids.push(stone);
+    }
+    // stone1 = new StoneBlock(96, 450);
+    // stone2 = new StoneBlock(96+48, 450);
     player = new Player(96+24, 150);
 
-    solids.push(stone1);
-    solids.push(stone2);
+    // solids.push(stone1);
+    // solids.push(stone2);
 
     entities.push(player);
 
@@ -46,10 +51,21 @@
         if (gamestate == "title") {
             startGame();
         } else if (gamestate == "running") {
-            // w or spacebar to jump
-            if (e.key=="w" || e.key==" ") player.jump();
         }
     }
+
+    // not sure the proper way to do this movement
+    // even with this, it doesn't handle the player holding down both keys then
+    // releasing one
+    document.querySelector("html").onkeydown = function(e) {
+        if (gamestate == "running") {
+            // w or spacebar to jump
+            if (e.key == "w" || e.key == " ") player.jump();
+            if (e.key == "a") player.move("left");
+            if (e.key == "d") player.move("right");
+        }
+    }
+
 
     setInterval(tick, tickInterval); //tick() in game.js // tickInterval is in ms
 

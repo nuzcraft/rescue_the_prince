@@ -6,6 +6,7 @@ class Entity{
         this.last_x = x;
         this.last_y = y;
         this.vSpeed = 0; // vertical speed
+        this.hSpeed = 0; // horiontal speed
     }
 }
 
@@ -43,6 +44,8 @@ class EntityWithSprite extends Entity{
         this.last_y = this.y;
         // move the entity up/down based on the vSpeed
         this.y += this.vSpeed;
+        // move the entity left/right based on the hSpeed;
+        this.x += this.hSpeed;
         // check the lower bound of the entity (using the sprite)
         if (!pointInSolid(this.centerX(), this.bottomY() + 1)){
             // if point below the entity not in a solid, increase the vSpeed
@@ -63,7 +66,14 @@ class EntityWithSprite extends Entity{
                     this.y = this.y - i;
                     break;
                 }
-            }            
+            } 
+            
+            // additionally, if the point below is a solid, apply friction
+            if (this.hSpeed > 0) {
+                this.hSpeed -= 1;
+            } else if (this.hSpeed < 0) {
+                this.hSpeed += 1;
+            }
         }
         //TODO deal with moving left and right
     }
@@ -73,6 +83,15 @@ class EntityWithSprite extends Entity{
         // entities can only jump from solid ground
         if(pointInSolid(this.centerX(), this.bottomY() + 1)){
             this.vSpeed = -16; // negative since up is the -y direction
+        }
+    }
+
+    // by default, an entity can move both on the ground and in the air
+    move(direction) {
+        if (direction == "left"){
+            this.hSpeed -= 2;
+        } else if (direction == "right"){
+            this.hSpeed += 2;
         }
     }
 }

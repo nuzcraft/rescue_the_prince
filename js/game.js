@@ -79,8 +79,11 @@ function tick() {
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    stone1.draw();
-    stone2.draw();
+    // draw all the solids
+    for (i = 0; i < solids.length; i++) {
+        solids[i].draw();
+    }
+    
     player.draw(); 
 }
 
