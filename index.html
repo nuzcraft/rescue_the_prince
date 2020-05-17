@@ -44,25 +44,59 @@
         showTitle() // game.js
     }
 
-    // this will handle our keypresses
-    // TODO: move into different file
-    // TODO: add gamepad support
+    // // this will handle our keypresses
+    // // TODO: move into different file
+    // // TODO: add gamepad support
+    // document.querySelector("html").onkeypress = function(e) {
+    //     if (gamestate == "title") {
+    //         startGame();
+    //     } else if (gamestate == "running") {
+    //     }
+    // }
+
+    // // not sure the proper way to do this movement
+    // // even with this, it doesn't handle the player holding down both keys then
+    // // releasing one
+    // document.querySelector("html").onkeydown = function(e) {
+    //     if (gamestate == "running") {
+    //         // w or spacebar to jump
+    //         if (e.key == "w" || e.key == " ") player.jump();
+    //         if (e.key == "a") player.move("left");
+    //         if (e.key == "d") player.move("right");
+    //     }
+    // }
+
+    keyCodes = {"ArrowLeft":'left', "ArrowRight":'right', "ArrowUp":'up', "ArrowDown":'down',
+                "a":'left', "d":'right', "w":'up', "s":'down'}
+    keys = {left:0, right:0, up:0, down:0};
+
+    document.querySelector("html").onkeydown = KeyDown;
+    document.querySelector("html").onkeyup = KeyUp;
+
     document.querySelector("html").onkeypress = function(e) {
-        if (gamestate == "title") {
+        if (gamestate == 'title') {
             startGame();
-        } else if (gamestate == "running") {
         }
     }
 
-    // not sure the proper way to do this movement
-    // even with this, it doesn't handle the player holding down both keys then
-    // releasing one
-    document.querySelector("html").onkeydown = function(e) {
-        if (gamestate == "running") {
-            // w or spacebar to jump
-            if (e.key == "w" || e.key == " ") player.jump();
-            if (e.key == "a") player.move("left");
-            if (e.key == "d") player.move("right");
+    function KeyDown(k) {
+        keys[keyCodes[k.key]] = 1;
+        console.log(keys);
+        movePlayer();
+    }
+
+    function KeyUp(k) {
+        keys[keyCodes[k.key]] = 0;
+        console.log(keys);
+        movePlayer();
+    }
+
+    function movePlayer() {
+        if (gamestate = "running") {
+            player.move(keys.right - keys.left);
+            if (keys.down - keys.up < 0){
+                player.jump();
+            }
         }
     }
 

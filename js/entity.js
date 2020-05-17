@@ -68,12 +68,12 @@ class EntityWithSprite extends Entity{
                 }
             } 
             
-            // additionally, if the point below is a solid, apply friction
-            if (this.hSpeed > 0) {
-                this.hSpeed -= 1;
-            } else if (this.hSpeed < 0) {
-                this.hSpeed += 1;
-            }
+            // // additionally, if the point below is a solid, apply friction
+            // if (this.hSpeed > 0) {
+            //     this.hSpeed -= 1;
+            // } else if (this.hSpeed < 0) {
+            //     this.hSpeed += 1;
+            // }
         }
         //TODO deal with moving left and right
     }
@@ -87,12 +87,9 @@ class EntityWithSprite extends Entity{
     }
 
     // by default, an entity can move both on the ground and in the air
+    // direction is supposed to be 1 or -1
     move(direction) {
-        if (direction == "left"){
-            this.hSpeed -= 2;
-        } else if (direction == "right"){
-            this.hSpeed += 2;
-        }
+        this.hSpeed += 2 * direction;
     }
 }
 
