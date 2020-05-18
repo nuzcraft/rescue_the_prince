@@ -72,30 +72,32 @@
 
     document.querySelector("html").onkeydown = KeyDown;
     document.querySelector("html").onkeyup = KeyUp;
+    document.querySelector("html").onkeypress = KeyPress;
 
-    document.querySelector("html").onkeypress = function(e) {
-        if (gamestate == 'title') {
+    function KeyPress(k) {
+        if (gamestate == "title") {
             startGame();
         }
     }
 
     function KeyDown(k) {
-        keys[keyCodes[k.key]] = 1;
-        movePlayer();
+        if (gamestate == "running"){
+            keys[keyCodes[k.key]] = 1;
+            movePlayer();
+        }
     }
 
     function KeyUp(k) {
-        keys[keyCodes[k.key]] = 0;
-        console.log(keys);
-        movePlayer();
+        if (gamestate == "running") {
+            keys[keyCodes[k.key]] = 0;
+            movePlayer();
+        }
     }
 
     function movePlayer() {
-        if (gamestate = "running") {
-            player.move(keys.right - keys.left);
-            if (keys.down - keys.up < 0){
-                player.jump();
-            }
+        player.move(keys.right - keys.left);
+        if (keys.down - keys.up < 0){
+            player.jump();
         }
     }
 

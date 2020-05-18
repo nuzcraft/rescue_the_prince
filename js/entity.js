@@ -44,6 +44,12 @@ class EntityWithSprite extends Entity{
         this.last_y = this.y;
         // move the entity up/down based on the vSpeed
         this.y += this.vSpeed;
+        // control jump height
+        // basically, when you let go of the jump button, it reduces your speed
+        if (keys.up == 0 && this.vSpeed < -6){
+            this.vSpeed = -6;
+        }
+
         // move the entity left/right based on the hSpeed;
         this.x += this.hSpeed;
         // check the lower bound of the entity (using the sprite)
