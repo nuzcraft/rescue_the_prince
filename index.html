@@ -83,24 +83,14 @@
     function KeyDown(k) {
         if (gamestate == "running"){
             keys[keyCodes[k.key]] = 1;
-            movePlayer();
         }
     }
 
     function KeyUp(k) {
         if (gamestate == "running") {
             keys[keyCodes[k.key]] = 0;
-            movePlayer();
         }
     }
-
-    function movePlayer() {
-        player.move(keys.right - keys.left);
-        if (keys.down - keys.up < 0){
-            player.jump();
-        }
-    }
-
 
     setInterval(tick, tickInterval); //tick() in game.js // tickInterval is in ms
 

@@ -42,16 +42,13 @@ class EntityWithSprite extends Entity{
         // set the last x and y coords
         this.last_x = this.x;
         this.last_y = this.y;
-        // move the entity up/down based on the vSpeed
-        this.y += this.vSpeed;
+
         // control jump height
         // basically, when you let go of the jump button, it reduces your speed
         if (keys.up == 0 && this.vSpeed < -6){
             this.vSpeed = -6;
         }
 
-        // move the entity left/right based on the hSpeed;
-        this.x += this.hSpeed;
         // check the lower bound of the entity (using the sprite)
         if (!pointInSolid(this.centerX(), this.bottomY() + 1)){
             // if point below the entity not in a solid, increase the vSpeed
@@ -62,40 +59,45 @@ class EntityWithSprite extends Entity{
         } else {
             // point below is in a solid, stop the fall
             this.vSpeed = 0;
-            // check the points between this position and the last one
-            // to put the entity right on top of the solid
-            var diff_y = this.y - this.last_y;
-            // work our way from current position back to last pos
-            // if the bottomY() is no longer in a solid, set the new y coord
-            for (let i = 0; i < diff_y; i++){
-                if (!pointInSolid(this.centerX(), this.bottomY() - i)){
-                    this.y = this.y - i;
-                    break;
-                }
-            } 
-            
-            // // additionally, if the point below is a solid, apply friction
-            // if (this.hSpeed > 0) {
-            //     this.hSpeed -= 1;
-            // } else if (this.hSpeed < 0) {
-            //     this.hSpeed += 1;
-            // }
+            // if we happen to be in a solid, move upwards to get out of it
+            while (pointInSolid(this.centerX(), this.bottomY())){
+                this.y -=1;
+            }
+            // jump control
+            if (keys.up){
+                this.vSpeed = -16;
+            }
         }
-        //TODO deal with moving left and right
-    }
+        // horiz movement
+        this.move();
 
-    // by default, an entity will jump straight up with a change in vspeed
-    jump() {
-        // entities can only jump from solid ground
-        if(pointInSolid(this.centerX(), this.bottomY() + 1)){
-            this.vSpeed = -16; // negative since up is the -y direction
-        }
+        // move the entity up/down based on the vSpeed
+        this.y += this.vSpeed;
+        // move the entity left/right based on the hSpeed;
+        this.x += this.hSpeed;
     }
 
     // by default, an entity can move both on the ground and in the air
     // direction is supposed to be 1 or -1
-    move(direction) {
-        this.hSpeed += 2 * direction;
+    move() {
+        if (keys.right || keys.left){
+            this.hSpeed += (keys.right - keys.left) * player_acc;
+            if (this.hSpeed > maxHSpeed) this.hSpeed = maxHSpeed;
+            if (this.hSpeed < -maxHSpeed) this.hSpeed = -maxHSpeed;
+        } else {
+            if (this.hSpeed < 0){
+                this.hSpeed += player_acc;
+                if (this.hSpeed > 0){
+                    this.hSpeed = 0;
+                }
+            } else if (this.hSpeed > 0){
+                this.hSpeed -= player_acc
+                if (this.hSpeed < 0){
+                    this.hSpeed = 0;
+                }
+            }
+        }
+        
     }
 }
 

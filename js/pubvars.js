@@ -13,6 +13,10 @@ numTiles_y = 11; // tiles tall for the game area
 
 gravity = 1; // this is an accelleration in the -y direction
 maxVSpeed = 10; // maximum speed for gravity stuff
+maxHSpeed = 10; // max speed for left and right player controlled movement
+player_acc = 1; // acceleration of a player (for both player controlled
+// movement as well as friction)
+
 
 // initialize some images
 sprCreatures = new Image();
