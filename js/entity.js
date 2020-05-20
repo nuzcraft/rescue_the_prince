@@ -33,6 +33,11 @@ class EntityWithSprite extends Entity{
         return this.y + this.sprite.draw_height - 1;
     }
 
+    // returns the right x coord of the entity
+    rightX(){
+        return this.x + this.sprite.draw_width - 1;
+    }
+
     draw(){
         this.sprite.draw(this.x, this.y);
     }
@@ -97,6 +102,25 @@ class EntityWithSprite extends Entity{
                 }
             }
         }
+        // check for horizontal collisions
+        if (this.hSpeed > 0) {
+            if (pointInSolid(this.rightX() + 1, this.centerY())){
+                this.hSpeed = 0;
+                
+                while (pointInSolid(this.rightX(), this.centerY())){
+                    this.x -= 1;
+                }
+            }
+        } else if (this.hSpeed < 0){
+            if (pointInSolid(this.x - 1, this.centerY())){
+                this.hSpeed = 0;
+                // if we accidentally end up in a solid, move back out
+                while (pointInSolid(this.x, this.centerY())){
+                    this.x += 1;
+                }
+            }
+        }
+
         
     }
 }

@@ -31,8 +31,17 @@
         var stone = new StoneBlock(i, 450);
         solids.push(stone);
     }
-    // stone1 = new StoneBlock(96, 450);
-    // stone2 = new StoneBlock(96+48, 450);
+
+    solids.push(new StoneBlock(10*48, 402));
+    solids.push(new StoneBlock(10*48, 402-48));
+
+    for (i = 0; i < numTiles_x * tileSize; i+=48) {
+        if ((i > 3*48 && i <= 6*48) || (i > 13*48 && i <= 16*48)){
+            var stone = new StoneBlock(i, 300);
+            solids.push(stone);
+        }
+    }
+
     player = new Player(96+24, 150);
 
     // solids.push(stone1);
