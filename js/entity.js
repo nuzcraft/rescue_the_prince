@@ -66,6 +66,13 @@ class EntityWithSprite extends Entity{
                 }
                 this.hSpeed = 0;
             }
+        } else if (this.hSpeed == 0){// not moving left or right
+            while (pointInSolid(this.x, this.centerY())){
+                this.x += 1;
+            }
+            while (pointInSolid(this.rightX(), this.centerY())){
+                this.x -= 1;
+            }
         }
         this.x += this.hSpeed;
 
@@ -84,6 +91,11 @@ class EntityWithSprite extends Entity{
                     this.y -= 1;
                 }
                 this.vSpeed = 0;
+            }
+        } else if (this.vSpeed == 0){// on a surface
+            // make sure we aren't sunk into the floor
+            while(pointInSolid(this.centerX(), this.bottomY())){
+                this.y -= 1;
             }
         }
         this.y += this.vSpeed;  
@@ -210,6 +222,30 @@ class Player extends EntityWith2Sprites{
         if (falling && wasntWall && isWall){
             this.hSpeed = 0;
             this.vSpeed = 0;
+
+            // make sure we're butted up against the wall
+            if (this.facingRight){ // facing right
+                while (!pointInSolid(this.rightX() + 1, this.centerY())){
+                    this.x += 1;
+                }
+                while (pointInSolid(this.rightX(), this.centerY())){
+                    this.x -= 1;
+                }
+                while (pointInSolid(this.rightX() + 1, this.y - 1)){
+                    this.y -= 1;
+                }
+            } else { // facing left
+                while (!pointInSolid(this.x - 1, this.centerY())){
+                    this.x -= 1;
+                }
+                while (pointInSolid(this.x, this.centerY())){
+                    this.x += 1;
+                }
+                while (pointInSolid(this.x - 1, this.y - 1)){
+                    this.y -= 1;
+                }
+            }
+
             this.state = this.ledgeGrab_state;
         }
     }
