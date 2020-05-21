@@ -234,6 +234,11 @@ class Player extends EntityWith2Sprites{
                 while (pointInSolid(this.rightX() + 1, this.y - 1)){
                     this.y -= 1;
                 }
+
+                // get the ledge grab sprites
+                this.sprite = sprPrincessLedgeGrabFlipped;
+                this.sprite2 = sprPrincessLedgeGrabFlipped;
+
             } else { // facing left
                 while (!pointInSolid(this.x - 1, this.centerY())){
                     this.x -= 1;
@@ -244,6 +249,10 @@ class Player extends EntityWith2Sprites{
                 while (pointInSolid(this.x - 1, this.y - 1)){
                     this.y -= 1;
                 }
+
+                // get the ledge grab sprites
+                this.sprite = sprPrincessLedgeGrab;
+                this.sprite2 = sprPrincessLedgeGrab;
             }
 
             this.state = this.ledgeGrab_state;
