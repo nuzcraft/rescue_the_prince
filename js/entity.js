@@ -3,12 +3,16 @@ class Entity{
     constructor(x, y){
         this.x = x;
         this.y = y;
+        this.xPrevious = x;
+        this.yPrevious = y;
         this.vSpeed = 0; // vertical speed
         this.hSpeed = 0; // horiontal speed
         this.state = undefined;
     }
 
     tick() {
+        this.xPrevious = this.x;
+        this.yPrevious = this.y;
         this.state();
     }
 }
@@ -106,10 +110,7 @@ class Player extends EntityWith2Sprites{
     constructor(x, y){
         super(x, y, sprPrincess1, sprPrincess2);
         this.state = this.move_state;
-    }
-
-    tick() {
-        this.state();
+        this.facingRight = 0; // 0 for left, 1 for right
     }
 
     move_state() {
@@ -169,22 +170,61 @@ class Player extends EntityWith2Sprites{
             if (keys.right){ // player pressing right
                 this.sprite = sprPrincess1Flipped;
                 this.sprite2 = sprPrincess2Flipped;
+                this.facingRight = 1;
             } else { // player is pressing left
                 this.sprite = sprPrincess1;
                 this.sprite2 = sprPrincess2;
+                this.facingRight = 0;
             }
         } 
         else {
             if (this.hSpeed > 0) { // character is moving right
                 this.sprite = sprPrincess1Flipped;
                 this.sprite2 = sprPrincess2Flipped;
+                this.facingRight = 1;
             } else if (this.hSpeed < 0) { // character is moving left
                 this.sprite = sprPrincess1;
                 this.sprite2 = sprPrincess2;
+                this.facingRight = 0;
             }
         }
 
         this.move();
 
+        // check for ledge grab state
+        var falling = this.y - this.yPrevious > 0;
+        var wasntWall, isWall;
+        if (this.facingRight){ // facing right
+            // check 3 pixels to the right of the previous y
+            wasntWall = !pointInSolid(this.rightX() + 2, this.yPrevious + this.sprite.draw_height / 2);
+            // check 3 pixels to the right of the current y
+            isWall = pointInSolid(this.rightX() + 2, this.centerY());
+        } else { // facing left
+            // check 3 pixels to the left of the previous y
+            wasntWall = !pointInSolid(this.x - 2, this.yPrevious + this.sprite.draw_height / 2);
+            // check 3 pixels to the right of the current y
+            isWall = pointInSolid(this.x - 2, this.centerY());
+        }
+
+        // if we are falling, there wasn't a wall, and now there is
+        if (falling && wasntWall && isWall){
+            this.hSpeed = 0;
+            this.vSpeed = 0;
+            this.state = this.ledgeGrab_state;
+        }
+    }
+
+    ledgeGrab_state(){
+        // super simple state, we hover (no gravity)
+        // we can either jump out of it, or drop down back into the move state
+
+        if (keys.down){
+            this.state = this.move_state;
+        }
+
+        if (keys.up){
+            this.state = this.move_state;
+            this.vSpeed = -16;
+        }
     }
 }
