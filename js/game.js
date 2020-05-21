@@ -113,3 +113,28 @@ function startGame() {
     console.log("Starting game.");
     gamestate = "running";
 }
+
+// TODO add gamepad support
+function getInput() {
+    document.querySelector("html").onkeydown = keyDown;
+    document.querySelector("html").onkeyup = keyUp;
+    document.querySelector("html").onkeypress = keyPress;
+}
+
+function keyPress(k) {
+    if (gamestate == "title") {
+        startGame();
+    }
+}
+
+function keyDown(k) {
+    if (gamestate == "running"){
+        keys[keyCodes[k.key]] = 1;
+    }
+}
+
+function keyUp(k) {
+    if (gamestate == "running") {
+        keys[keyCodes[k.key]] = 0;
+    }
+}

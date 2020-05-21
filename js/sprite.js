@@ -27,6 +27,6 @@ class Sprite {
             y, // y pos to draw to on canvas
             this.draw_height, // new width to draw (from pubvars.js)
             this.draw_width // new height to draw (from pubvars.js)
-        )
+        );
     }
 }
