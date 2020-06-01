@@ -31,6 +31,14 @@ imgPrincessLedgeGrab = new Image();
 imgPrincessLedgeGrab.src = 'images/princess/princess_ledge_grab.png';
 imgPrincessLedgeGrabFlipped = new Image();
 imgPrincessLedgeGrabFlipped.src = 'images/princess/princess_ledge_grab_flipped.png';
+imgPrincessJump = new Image();
+imgPrincessJump.src = 'images/princess/princess_jump.png';
+imgPrincessJumpFlipped = new Image();
+imgPrincessJumpFlipped.src = 'images/princess/princess_jump_flipped.png';
+imgPrincessFalling = new Image();
+imgPrincessFalling.src = 'images/princess/princess_falling.png';
+imgPrincessFallingFlipped = new Image();
+imgPrincessFallingFlipped.src = 'images/princess/princess_falling_flipped.png';
 
 // Sprite class defined in js/sprite.js
 // each creature sprite has 2 frames (labeled 1 and 2) in subsequent rows
@@ -40,6 +48,10 @@ sprPrincess1Flipped = new Sprite(3, 7, 24, 24, imgCreaturesFlipped);
 sprPrincess2Flipped = new Sprite(4, 7, 24, 24, imgCreaturesFlipped);
 sprPrincessLedgeGrab = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrab);
 sprPrincessLedgeGrabFlipped = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrabFlipped);
+sprPrincessJump = new Sprite(0, 0, 24, 24, imgPrincessJump);
+sprPrincessJumpFlipped = new Sprite(0, 0, 24, 24, imgPrincessJumpFlipped);
+sprPrincessFalling = new Sprite(0, 0, 24, 24, imgPrincessFalling);
+sprPrincessFallingFlipped = new Sprite(0, 0, 24, 24, imgPrincessFallingFlipped);
 
 // world sprites
 sprStoneBlock = new Sprite(1, 1, 24, 24, imgWorld);

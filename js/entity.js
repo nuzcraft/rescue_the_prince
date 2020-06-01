@@ -131,6 +131,44 @@ class Player extends EntityWith2Sprites{
             // if point below the entity not in a solid, increase the vSpeed due to gravity
             this.vSpeed += gravity;
 
+            // player is in the air
+            // TODO, determine direction
+            if (this.hSpeed > 0) { // character is moving right
+                if (this.vSpeed > 0) { // falling 
+                    this.sprite = sprPrincessFallingFlipped;
+                    this.sprite2 = sprPrincessFallingFlipped;
+                } else {
+                    this.sprite = sprPrincessJumpFlipped;
+                    this.sprite2 = sprPrincessJumpFlipped;
+                }
+                this.facingRight = 1;
+            } else if (this.hSpeed < 0) { // character is moving left
+                if (this.vSpeed > 0) {
+                    this.sprite = sprPrincessFalling;
+                    this.sprite2 = sprPrincessFalling;
+                } else {
+                    this.sprite = sprPrincessJump;
+                    this.sprite2 = sprPrincessJump;
+                }                
+                this.facingRight = 0;
+            } else if (this.facingRight == 1) {
+                if (this.vSpeed > 0) { // falling 
+                    this.sprite = sprPrincessFallingFlipped;
+                    this.sprite2 = sprPrincessFallingFlipped;
+                } else {
+                    this.sprite = sprPrincessJumpFlipped;
+                    this.sprite2 = sprPrincessJumpFlipped;
+                }
+            } else if (this.facingRight == 0) {
+                if (this.vSpeed > 0) {
+                    this.sprite = sprPrincessFalling;
+                    this.sprite2 = sprPrincessFalling;
+                } else {
+                    this.sprite = sprPrincessJump;
+                    this.sprite2 = sprPrincessJump;
+                }   
+            }
+
             // control jump height
             // basically, when you let go of the jump button, it reduces your speed
             if (keys.up == 0 && this.vSpeed < -6){
@@ -149,6 +187,23 @@ class Player extends EntityWith2Sprites{
             // jump control
             if (keys.up){
                 this.vSpeed = -16;
+            }
+
+            // player is on the ground, needs idle sprite
+            if (this.hSpeed > 0) { // character is moving right
+                this.sprite = sprPrincess1Flipped;
+                this.sprite2 = sprPrincess2Flipped;
+                this.facingRight = 1;
+            } else if (this.hSpeed < 0) { // character is moving left
+                this.sprite = sprPrincess1;
+                this.sprite2 = sprPrincess2;
+                this.facingRight = 0;
+            } else if (this.facingRight == 1) {
+                this.sprite = sprPrincess1Flipped;
+                this.sprite2 = sprPrincess2Flipped;
+            } else if (this.facingRight == 0) {
+                this.sprite = sprPrincess1;
+                this.sprite2 = sprPrincess2;
             }
         }
 
@@ -173,31 +228,6 @@ class Player extends EntityWith2Sprites{
                 if (this.hSpeed < 0){
                     this.hSpeed = 0;
                 }
-            }
-        }
-
-        // adjust the player sprites depending on the direction they are moving
-        if (keys.right || keys.left){
-            // if player is pressing a key, face that direction
-            if (keys.right){ // player pressing right
-                this.sprite = sprPrincess1Flipped;
-                this.sprite2 = sprPrincess2Flipped;
-                this.facingRight = 1;
-            } else { // player is pressing left
-                this.sprite = sprPrincess1;
-                this.sprite2 = sprPrincess2;
-                this.facingRight = 0;
-            }
-        } 
-        else {
-            if (this.hSpeed > 0) { // character is moving right
-                this.sprite = sprPrincess1Flipped;
-                this.sprite2 = sprPrincess2Flipped;
-                this.facingRight = 1;
-            } else if (this.hSpeed < 0) { // character is moving left
-                this.sprite = sprPrincess1;
-                this.sprite2 = sprPrincess2;
-                this.facingRight = 0;
             }
         }
 
