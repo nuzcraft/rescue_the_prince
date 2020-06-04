@@ -8,6 +8,10 @@ class Entity{
         this.vSpeed = 0; // vertical speed
         this.hSpeed = 0; // horiontal speed
         this.state = undefined;
+        this.maskXOffset = 0; //
+        this.maskYOffset = 0;
+        this.maskWidth = tileSize;
+        this.maskHeight = tileSize;
     }
 
     tick() {
@@ -27,22 +31,32 @@ class EntityWithSprite extends Entity{
 
     // returns the center x coord of the the entity
     centerX(){
-        return this.x + this.sprite.draw_width / 2;
+        return this.leftX() + Math.floor(this.maskWidth / 2);
     }
 
     // returns the center y coord of the entity
     centerY(){
-        return this.y + this.sprite.draw_height / 2;
+        return this.topY() + Math.floor(this.maskHeight / 2);
     }
 
     // returns the bottom y coord of the entity
     bottomY(){
-        return this.y + this.sprite.draw_height - 1;
+        return this.topY() + this.maskHeight - 1;
+    }
+
+    // returns the top y coord of the entity, with mask offset taken into account
+    topY(){
+        return this.y + this.maskYOffset;
     }
 
     // returns the right x coord of the entity
     rightX(){
-        return this.x + this.sprite.draw_width - 1;
+        return this.leftX() + this.maskWidth - 1;
+    }
+
+    // returns the left x cooord, with mask taken into account
+    leftX(){
+        return this.x + this.maskXOffset;
     }
 
     draw(){
@@ -60,14 +74,14 @@ class EntityWithSprite extends Entity{
                 this.hSpeed = 0;
             }
         } else if (this.hSpeed < 0) { // moving left
-            if (pointInSolid (this.x + this.hSpeed, this.centerY())){
-                while (!pointInSolid(this.x - 1, this.centerY())){
+            if (pointInSolid (this.leftX() + this.hSpeed, this.centerY())){
+                while (!pointInSolid(this.leftX() - 1, this.centerY())){
                     this.x -= 1;
                 }
                 this.hSpeed = 0;
             }
-        } else if (this.hSpeed == 0){// not moving left or right
-            while (pointInSolid(this.x, this.centerY())){
+        } else if (this.hSpeed == 0){// not moving left or rightd
+            while (pointInSolid(this.leftX(), this.centerY())){
                 this.x += 1;
             }
             while (pointInSolid(this.rightX(), this.centerY())){
@@ -86,8 +100,8 @@ class EntityWithSprite extends Entity{
                 this.vSpeed = 0;
             }
         } else if (this.vSpeed < 0) { // moving up
-            if (pointInSolid (this.centerX(), this.y + this.vSpeed)){
-                while (!pointInSolid(this.centerX(), this.y - 1)){
+            if (pointInSolid (this.centerX(), this.topY() + this.vSpeed)){
+                while (!pointInSolid(this.centerX(), this.topY() - 1)){
                     this.y -= 1;
                 }
                 this.vSpeed = 0;
@@ -123,6 +137,12 @@ class Player extends EntityWith2Sprites{
         super(x, y, sprPrincess1, sprPrincess2);
         this.state = this.move_state;
         this.facingRight = 0; // 0 for left, 1 for right
+
+        this.maskXOffset = 7;
+        this.maskWidth = this.maskWidth - this.maskXOffset * 2; //left and right can have even margins
+
+        this.maskYOffset = 10;
+        this.maskHeight = this.maskHeight - this.maskYOffset - 1; //I only want the  player to sink in one pixel
     }
 
     move_state() {
@@ -238,14 +258,14 @@ class Player extends EntityWith2Sprites{
         var wasntWall, isWall;
         if (this.facingRight){ // facing right
             // check 3 pixels to the right of the previous y
-            wasntWall = !pointInSolid(this.rightX() + 2, this.yPrevious + this.sprite.draw_height / 2);
+            wasntWall = !pointInSolid(this.rightX() + 2, this.yPrevious + this.maskYOffset + Math.floor(this.maskHeight / 2));
             // check 3 pixels to the right of the current y
             isWall = pointInSolid(this.rightX() + 2, this.centerY());
         } else { // facing left
             // check 3 pixels to the left of the previous y
-            wasntWall = !pointInSolid(this.x - 2, this.yPrevious + this.sprite.draw_height / 2);
+            wasntWall = !pointInSolid(this.leftX() - 2, this.yPrevious + this.maskYOffset + Math.floor(this.maskHeight / 2));
             // check 3 pixels to the right of the current y
-            isWall = pointInSolid(this.x - 2, this.centerY());
+            isWall = pointInSolid(this.leftX() - 2, this.centerY());
         }
 
         // if we are falling, there wasn't a wall, and now there is
@@ -261,7 +281,7 @@ class Player extends EntityWith2Sprites{
                 while (pointInSolid(this.rightX(), this.centerY())){
                     this.x -= 1;
                 }
-                while (pointInSolid(this.rightX() + 1, this.y - 1)){
+                while (pointInSolid(this.rightX() + 1, this.topY() - 1)){
                     this.y -= 1;
                 }
 
@@ -270,13 +290,13 @@ class Player extends EntityWith2Sprites{
                 this.sprite2 = sprPrincessLedgeGrabFlipped;
 
             } else { // facing left
-                while (!pointInSolid(this.x - 1, this.centerY())){
+                while (!pointInSolid(this.leftX() - 1, this.centerY())){
                     this.x -= 1;
                 }
-                while (pointInSolid(this.x, this.centerY())){
+                while (pointInSolid(this.leftX(), this.centerY())){
                     this.x += 1;
                 }
-                while (pointInSolid(this.x - 1, this.y - 1)){
+                while (pointInSolid(this.leftX() - 1, this.topY() - 1)){
                     this.y -= 1;
                 }
 
