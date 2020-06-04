@@ -21,37 +21,24 @@ const player_acc = 1; // acceleration of a player (for both player controlled
 // initialize some images
 imgCreatures = new Image();
 imgCreatures.src = 'images/oryx_16bit_fantasy_creatures_trans.png';
-imgCreaturesFlipped = new Image();
-imgCreaturesFlipped.src = 'images/oryx_16bit_fantasy_creatures_trans_flipped.png';
 imgWorld = new Image();
 imgWorld.src = 'images/oryx_16bit_fantasy_world_trans.png';
 
 //specific images
 imgPrincessLedgeGrab = new Image();
 imgPrincessLedgeGrab.src = 'images/princess/princess_ledge_grab.png';
-imgPrincessLedgeGrabFlipped = new Image();
-imgPrincessLedgeGrabFlipped.src = 'images/princess/princess_ledge_grab_flipped.png';
 imgPrincessJump = new Image();
 imgPrincessJump.src = 'images/princess/princess_jump.png';
-imgPrincessJumpFlipped = new Image();
-imgPrincessJumpFlipped.src = 'images/princess/princess_jump_flipped.png';
 imgPrincessFalling = new Image();
 imgPrincessFalling.src = 'images/princess/princess_falling.png';
-imgPrincessFallingFlipped = new Image();
-imgPrincessFallingFlipped.src = 'images/princess/princess_falling_flipped.png';
 
 // Sprite class defined in js/sprite.js
 // each creature sprite has 2 frames (labeled 1 and 2) in subsequent rows
 const sprPrincess1 = new Sprite(3, 12, 24, 24, imgCreatures);
 const sprPrincess2 = new Sprite(4, 12, 24, 24, imgCreatures);
-const sprPrincess1Flipped = new Sprite(3, 7, 24, 24, imgCreaturesFlipped);
-const sprPrincess2Flipped = new Sprite(4, 7, 24, 24, imgCreaturesFlipped);
 const sprPrincessLedgeGrab = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrab);
-const sprPrincessLedgeGrabFlipped = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrabFlipped);
 const sprPrincessJump = new Sprite(0, 0, 24, 24, imgPrincessJump);
-const sprPrincessJumpFlipped = new Sprite(0, 0, 24, 24, imgPrincessJumpFlipped);
 const sprPrincessFalling = new Sprite(0, 0, 24, 24, imgPrincessFalling);
-const sprPrincessFallingFlipped = new Sprite(0, 0, 24, 24, imgPrincessFallingFlipped);
 
 // world sprites
 const sprStoneBlock = new Sprite(1, 1, 24, 24, imgWorld);

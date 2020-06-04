@@ -137,7 +137,7 @@ class Player extends EntityWith2Sprites{
     constructor(x, y){
         super(x, y, sprPrincess1, sprPrincess2);
         this.state = this.move_state;
-        this.facingRight = 0; // 0 for left, 1 for right
+        // this.facingRight = 0; // 0 for left, 1 for right
 
         this.maskXOffset = 7;
         this.maskWidth = this.maskWidth - this.maskXOffset * 2; //left and right can have even margins
@@ -153,41 +153,12 @@ class Player extends EntityWith2Sprites{
             this.vSpeed += gravity;
 
             // player is in the air
-            // TODO, determine direction
-            if (this.hSpeed > 0) { // character is moving right
-                if (this.vSpeed > 0) { // falling 
-                    this.sprite = sprPrincessFallingFlipped;
-                    this.sprite2 = sprPrincessFallingFlipped;
-                } else {
-                    this.sprite = sprPrincessJumpFlipped;
-                    this.sprite2 = sprPrincessJumpFlipped;
-                }
-                this.facingRight = 1;
-            } else if (this.hSpeed < 0) { // character is moving left
-                if (this.vSpeed > 0) {
-                    this.sprite = sprPrincessFalling;
-                    this.sprite2 = sprPrincessFalling;
-                } else {
+            if (this.vSpeed > 0){ // falling
+                this.sprite = sprPrincessFalling;
+                this.sprite2 = sprPrincessFalling;
+            } else { // jumping
                     this.sprite = sprPrincessJump;
-                    this.sprite2 = sprPrincessJump;
-                }                
-                this.facingRight = 0;
-            } else if (this.facingRight == 1) {
-                if (this.vSpeed > 0) { // falling 
-                    this.sprite = sprPrincessFallingFlipped;
-                    this.sprite2 = sprPrincessFallingFlipped;
-                } else {
-                    this.sprite = sprPrincessJumpFlipped;
-                    this.sprite2 = sprPrincessJumpFlipped;
-                }
-            } else if (this.facingRight == 0) {
-                if (this.vSpeed > 0) {
-                    this.sprite = sprPrincessFalling;
-                    this.sprite2 = sprPrincessFalling;
-                } else {
-                    this.sprite = sprPrincessJump;
-                    this.sprite2 = sprPrincessJump;
-                }   
+                    this.sprite2 = sprPrincessJump;                
             }
 
             // control jump height
@@ -210,22 +181,9 @@ class Player extends EntityWith2Sprites{
                 this.vSpeed = -16;
             }
 
-            // player is on the ground, needs idle sprite
-            if (this.hSpeed > 0) { // character is moving right
-                this.sprite = sprPrincess1Flipped;
-                this.sprite2 = sprPrincess2Flipped;
-                this.facingRight = 1;
-            } else if (this.hSpeed < 0) { // character is moving left
-                this.sprite = sprPrincess1;
-                this.sprite2 = sprPrincess2;
-                this.facingRight = 0;
-            } else if (this.facingRight == 1) {
-                this.sprite = sprPrincess1Flipped;
-                this.sprite2 = sprPrincess2Flipped;
-            } else if (this.facingRight == 0) {
-                this.sprite = sprPrincess1;
-                this.sprite2 = sprPrincess2;
-            }
+            // player is on the ground
+            this.sprite = sprPrincess1;
+            this.sprite2 = sprPrincess2;
         }
 
         // horiz movement
@@ -252,12 +210,16 @@ class Player extends EntityWith2Sprites{
             }
         }
 
+        if (this.hSpeed != 0){
+            this.xScale = -Math.sign(this.hSpeed);
+        }
+
         this.move();
 
         // check for ledge grab state
         var falling = this.y - this.yPrevious > 0;
         var wasntWall, isWall;
-        if (this.facingRight){ // facing right
+        if (this.xScale == -1){ // facing right
             // check 3 pixels to the right of the previous y
             wasntWall = !pointInSolid(this.rightX() + 2, this.yPrevious + this.maskYOffset + Math.floor(this.maskHeight / 2));
             // check 3 pixels to the right of the current y
@@ -275,7 +237,7 @@ class Player extends EntityWith2Sprites{
             this.vSpeed = 0;
 
             // make sure we're butted up against the wall
-            if (this.facingRight){ // facing right
+            if (this.xScale == -1){ // facing right
                 while (!pointInSolid(this.rightX() + 1, this.centerY())){
                     this.x += 1;
                 }
@@ -284,12 +246,7 @@ class Player extends EntityWith2Sprites{
                 }
                 while (pointInSolid(this.rightX() + 1, this.topY() - 1)){
                     this.y -= 1;
-                }
-
-                // get the ledge grab sprites
-                this.sprite = sprPrincessLedgeGrabFlipped;
-                this.sprite2 = sprPrincessLedgeGrabFlipped;
-
+                }         
             } else { // facing left
                 while (!pointInSolid(this.leftX() - 1, this.centerY())){
                     this.x -= 1;
@@ -300,12 +257,9 @@ class Player extends EntityWith2Sprites{
                 while (pointInSolid(this.leftX() - 1, this.topY() - 1)){
                     this.y -= 1;
                 }
-
-                // get the ledge grab sprites
-                this.sprite = sprPrincessLedgeGrab;
-                this.sprite2 = sprPrincessLedgeGrab;
             }
-
+            this.sprite = sprPrincessLedgeGrab;
+            this.sprite2 = sprPrincessLedgeGrab;
             this.state = this.ledgeGrab_state;
         }
     }
