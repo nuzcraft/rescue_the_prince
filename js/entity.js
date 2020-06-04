@@ -27,6 +27,7 @@ class EntityWithSprite extends Entity{
     constructor(x, y, sprite){
         super(x, y);
         this.sprite = sprite;
+        this.xScale = 1; // 1 for left facing; -1 for right facing
     }
 
     // returns the center x coord of the the entity
@@ -60,7 +61,7 @@ class EntityWithSprite extends Entity{
     }
 
     draw(){
-        this.sprite.draw(this.x, this.y);
+        this.sprite.draw(this.x, this.y, this.xScale);
     }
 
     move() {

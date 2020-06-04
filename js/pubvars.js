@@ -1,20 +1,20 @@
 
 // debug mode? used to toggle debug messages?
-debugMode = true;
+const debugMode = true;
 
 // gameclock used to count the number of ms that have passed
-tickInterval = 15 // ms
-gameclock = 0; // also in ms
+const tickInterval = 15 // ms
+var gameclock = 0; // also in ms
 
 // initialize some variables
-tileSize = 48; // pixels tall and wide for a tile
-numTiles_x = 21; // tiles wide for the game area
-numTiles_y = 11; // tiles tall for the game area
+const tileSize = 48; // pixels tall and wide for a tile
+const numTiles_x = 21; // tiles wide for the game area
+const numTiles_y = 11; // tiles tall for the game area
 
-gravity = 1; // this is an accelleration in the -y direction
-maxVSpeed = 12; // maximum speed for gravity stuff
-maxHSpeed = 8; // max speed for left and right player controlled movement
-player_acc = 1; // acceleration of a player (for both player controlled
+const gravity = 1; // this is an accelleration in the -y direction
+const maxVSpeed = 12; // maximum speed for gravity stuff
+const maxHSpeed = 8; // max speed for left and right player controlled movement
+const player_acc = 1; // acceleration of a player (for both player controlled
 // movement as well as friction)
 
 
@@ -42,28 +42,34 @@ imgPrincessFallingFlipped.src = 'images/princess/princess_falling_flipped.png';
 
 // Sprite class defined in js/sprite.js
 // each creature sprite has 2 frames (labeled 1 and 2) in subsequent rows
-sprPrincess1 = new Sprite(3, 12, 24, 24, imgCreatures);
-sprPrincess2 = new Sprite(4, 12, 24, 24, imgCreatures);
-sprPrincess1Flipped = new Sprite(3, 7, 24, 24, imgCreaturesFlipped);
-sprPrincess2Flipped = new Sprite(4, 7, 24, 24, imgCreaturesFlipped);
-sprPrincessLedgeGrab = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrab);
-sprPrincessLedgeGrabFlipped = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrabFlipped);
-sprPrincessJump = new Sprite(0, 0, 24, 24, imgPrincessJump);
-sprPrincessJumpFlipped = new Sprite(0, 0, 24, 24, imgPrincessJumpFlipped);
-sprPrincessFalling = new Sprite(0, 0, 24, 24, imgPrincessFalling);
-sprPrincessFallingFlipped = new Sprite(0, 0, 24, 24, imgPrincessFallingFlipped);
+const sprPrincess1 = new Sprite(3, 12, 24, 24, imgCreatures);
+const sprPrincess2 = new Sprite(4, 12, 24, 24, imgCreatures);
+const sprPrincess1Flipped = new Sprite(3, 7, 24, 24, imgCreaturesFlipped);
+const sprPrincess2Flipped = new Sprite(4, 7, 24, 24, imgCreaturesFlipped);
+const sprPrincessLedgeGrab = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrab);
+const sprPrincessLedgeGrabFlipped = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrabFlipped);
+const sprPrincessJump = new Sprite(0, 0, 24, 24, imgPrincessJump);
+const sprPrincessJumpFlipped = new Sprite(0, 0, 24, 24, imgPrincessJumpFlipped);
+const sprPrincessFalling = new Sprite(0, 0, 24, 24, imgPrincessFalling);
+const sprPrincessFallingFlipped = new Sprite(0, 0, 24, 24, imgPrincessFallingFlipped);
 
 // world sprites
-sprStoneBlock = new Sprite(1, 1, 24, 24, imgWorld);
+const sprStoneBlock = new Sprite(1, 1, 24, 24, imgWorld);
 
 // colors
 const color_white = "#ffffff";
 
 // global lists
-entities = [];
-solids = [];
+var entities = [];
+var solids = [];
 
 // global variables for keys
 const keyCodes = {"ArrowLeft":'left', "ArrowRight":'right', "ArrowUp":'up', "ArrowDown":'down',
                 "a":'left', "d":'right', "w":'up', "s":'down'}
-keys = {left:0, right:0, up:0, down:0};
+var keys = {left:0, right:0, up:0, down:0};
+
+// global variables for the canvas and context and other globals
+var canvas;
+var ctx;
+var gamestate;
+var player;

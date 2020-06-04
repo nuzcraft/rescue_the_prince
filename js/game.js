@@ -21,7 +21,7 @@ function showTitle() {
     gamestate = "title";
 
     drawText("Rescue the Prince", 70, true, 0, canvas.height / 2, color_white
-    , fontWeight="bold", fontStyle="italic" );
+    , "bold", "italic" );
 
 }
 
@@ -80,7 +80,7 @@ function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // draw all the solids
-    for (i = 0; i < solids.length; i++) {
+    for (let i = 0; i < solids.length; i++) {
         solids[i].draw();
     }
     
@@ -91,14 +91,14 @@ function draw() {
 // whether the point is in a Solid
 function pointInSolid(x, y) {
     // loop through all the solids
-    for (i = 0; i < solids.length; i++) {
+    for (let i = 0; i < solids.length; i++) {
         // check if the x coord is in the x of the solid
         // leans on solid.x and solid.sprite.width
-        for (j = solids[i].x; j <= solids[i].x + solids[i].sprite.draw_width; j++){
+        for (let j = solids[i].x; j <= solids[i].x + solids[i].sprite.draw_width; j++){
             // if the x coords match, check the y
             if (x == j){
                 // check the y coord for a match
-                for (k = solids[i].y; k <= solids[i].y + solids[i].sprite.draw_height; k++){
+                for (let k = solids[i].y; k <= solids[i].y + solids[i].sprite.draw_height; k++){
                     if (y == k){
                         return true;
                     }
