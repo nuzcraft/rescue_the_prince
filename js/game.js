@@ -62,13 +62,6 @@ function tick() {
 
         draw() //game.js
 
-        // not sure the best way to handle animations...
-        // right now, they all switch after 200 ms, but 
-        // if necessary, we can move that into each object individually
-        if (gameclock % 200 == 0){
-            player.animate();
-        }
-
         // right now, the player is the only thing that will move each
         // frame
         player.tick();

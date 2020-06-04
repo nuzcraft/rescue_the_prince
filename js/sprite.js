@@ -2,15 +2,18 @@
 // 18 images per row for creature, 53? for world
 // both rows and indexes are 1-indexed (start with 1 as first entry)
 class Sprite {
-    constructor(row, index, width, height, spritesheet
+    constructor(row, index, width, height, spritesheet, numFrames=1, animationSpeed=0
             , draw_width=tileSize, draw_height=tileSize) {
         this.row = row;
         this.index = index;
         this.width = width;
         this.height = height;
         this.spritesheet = spritesheet;
+        this.numFrames = numFrames;
+        this.animationSpeed = animationSpeed;
         this.draw_height = draw_height;
         this.draw_width = draw_width;
+        this.frame = 0;
     }
 
     // pass in x and y coordinates on the screen to draw the sprite there
@@ -19,6 +22,19 @@ class Sprite {
     //ctx.setTransform(1, 0, 0, 1, 0, 0) // (horiz scaling, vert skewing, horiz skewing, vert scaling, x origin, y origin)
     draw(x, y, xScale=1){
 
+        // before we handle scale, let's handle animation...
+        // animationSpeed = ms to switch (i.e. 200 will swap every 200 ms)
+        // by default a adding a frame will just add another row (since our spritesheet has animations on subsequent rows)
+        if (this.animationSpeed != 0) {
+            if (gameclock % this.animationSpeed == 0){ // check if the gameclock is evenly divided by our animationSpeed
+                if (this.frame == this.numFrames - 1) { // we've hit the max number of frames
+                    this.frame = 0; // go back to the first frame
+                } else {
+                    this.frame += 1; // go to the next frame
+                }
+            }
+        }
+
         if (xScale == -1){
             // reverse the canvas
             ctx.setTransform(-1, 0, 0, 1, canvas.width, 0);
@@ -26,7 +42,7 @@ class Sprite {
             ctx.drawImage(
                 this.spritesheet, // spritesheet source of sprite
                 this.index * this.width, // x pos (top left) of sprite in sheet
-                this.row * this.height, // y pos (top left) of sprite in sheet
+                (this.row + this.frame) * this.height, // y pos (top left) of sprite in sheet
                 this.width, // width of sprite (px)
                 this.height, // height of sprite (px)
                 canvas.width - x - this.draw_width, // x pos to draw to on canvas
@@ -40,7 +56,7 @@ class Sprite {
             ctx.drawImage(
                 this.spritesheet, // spritesheet source of sprite
                 this.index * this.width, // x pos (top left) of sprite in sheet
-                this.row * this.height, // y pos (top left) of sprite in sheet
+                (this.row + this.frame) * this.height, // y pos (top left) of sprite in sheet
                 this.width, // width of sprite (px)
                 this.height, // height of sprite (px)
                 x, // x pos to draw to on canvas

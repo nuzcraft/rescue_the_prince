@@ -10,6 +10,7 @@ var gameclock = 0; // also in ms
 const tileSize = 48; // pixels tall and wide for a tile
 const numTiles_x = 21; // tiles wide for the game area
 const numTiles_y = 11; // tiles tall for the game area
+const spriteSize = 24; // num of pixels in an actual sprite (not a tile)
 
 const gravity = 1; // this is an accelleration in the -y direction
 const maxVSpeed = 12; // maximum speed for gravity stuff
@@ -34,9 +35,8 @@ imgPrincessFalling.src = 'images/princess/princess_falling.png';
 
 // Sprite class defined in js/sprite.js
 // each creature sprite has 2 frames (labeled 1 and 2) in subsequent rows
-const sprPrincess1 = new Sprite(3, 12, 24, 24, imgCreatures);
-const sprPrincess2 = new Sprite(4, 12, 24, 24, imgCreatures);
-const sprPrincessLedgeGrab = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrab);
+const sprPrincess1 = new Sprite(3, 12, 24, 24, imgCreatures, 2, 200); // this comes from the spritesheet, has animation
+const sprPrincessLedgeGrab = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrab); // this is a standalone image, no animation
 const sprPrincessJump = new Sprite(0, 0, 24, 24, imgPrincessJump);
 const sprPrincessFalling = new Sprite(0, 0, 24, 24, imgPrincessFalling);
 

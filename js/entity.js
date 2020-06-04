@@ -117,25 +117,9 @@ class EntityWithSprite extends Entity{
     }
 }
 
-// this class will handle entities that have 2 sprites
-// that can be animated between
-class EntityWith2Sprites extends EntityWithSprite{
-    constructor(x, y, sprite, sprite2){
-        super(x, y, sprite);
-        this.sprite2 = sprite2;
-    }
-
-    // this will swap sprite1 and sprite2 
-    animate() {
-        var tempSprite = this.sprite;
-        this.sprite = this.sprite2;
-        this.sprite2 = tempSprite;
-    }
-}
-
-class Player extends EntityWith2Sprites{
+class Player extends EntityWithSprite{
     constructor(x, y){
-        super(x, y, sprPrincess1, sprPrincess2);
+        super(x, y, sprPrincess1);
         this.state = this.move_state;
         // this.facingRight = 0; // 0 for left, 1 for right
 
@@ -155,10 +139,8 @@ class Player extends EntityWith2Sprites{
             // player is in the air
             if (this.vSpeed > 0){ // falling
                 this.sprite = sprPrincessFalling;
-                this.sprite2 = sprPrincessFalling;
             } else { // jumping
-                    this.sprite = sprPrincessJump;
-                    this.sprite2 = sprPrincessJump;                
+                    this.sprite = sprPrincessJump;               
             }
 
             // control jump height
@@ -183,7 +165,6 @@ class Player extends EntityWith2Sprites{
 
             // player is on the ground
             this.sprite = sprPrincess1;
-            this.sprite2 = sprPrincess2;
         }
 
         // horiz movement
@@ -259,7 +240,6 @@ class Player extends EntityWith2Sprites{
                 }
             }
             this.sprite = sprPrincessLedgeGrab;
-            this.sprite2 = sprPrincessLedgeGrab;
             this.state = this.ledgeGrab_state;
         }
     }
