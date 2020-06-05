@@ -24,6 +24,8 @@ imgCreatures = new Image();
 imgCreatures.src = 'images/oryx_16bit_fantasy_creatures_trans.png';
 imgWorld = new Image();
 imgWorld.src = 'images/oryx_16bit_fantasy_world_trans.png';
+imgItems = new Image();
+imgItems.src = 'images/oryx_16bit_fantasy_items_trans.png';
 
 //specific images
 imgPrincessLedgeGrab = new Image();
@@ -42,6 +44,12 @@ const sprPrincessFalling = new Sprite(0, 0, 24, 24, imgPrincessFalling);
 
 // world sprites
 const sprStoneBlock = new Sprite(1, 1, 24, 24, imgWorld);
+
+const sprMudContinuous_BottomMid = new Sprite(24, 33, 24, 24, imgWorld); // mud for continuous platforms, this goes in the middle, on the bottom (the bottom is roughed up)
+
+const sprGrassOverlay_TopMid_1 = new Sprite(16, 48, 24, 24, imgWorld); // grass to overlay over platforms, this goes in the middle, on top, version 1
+const sprGrassOverlay_TopMid_2 = new Sprite(16, 52, 24, 24, imgWorld); // grass to overlay over platforms, this goes in the middle, on top, version 2
+const sprGrassOverlay_TopMid_3 = new Sprite(16, 53, 24, 24, imgWorld); // grass to overlay over platforms, this goes in the middle, on top, version 3
 
 // colors
 const color_white = "#ffffff";

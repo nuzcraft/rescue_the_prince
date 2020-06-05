@@ -28,8 +28,10 @@
 
     // lets create a floor of StoneBlocks + some walls
     for (i = 0; i < numTiles_x * tileSize; i+=48) {
-        var stone = new StoneBlock(i, 450);
-        solids.push(stone);
+        // var stone = new StoneBlock(i, 450);
+        // solids.push(stone);
+        var mud = new GrassPlatform_Mid(i, 450);
+        solids.push(mud);
     }
 
     // 2 blocks in the middle

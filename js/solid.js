@@ -19,10 +19,42 @@ class SolidWithSprite extends Solid{
     }
 }
 
+class SolidWithSpriteAndOverlay extends SolidWithSprite{
+    constructor(x, y, sprite, overlaySprite){
+        super(x, y, sprite);
+        this.overlaySprite = overlaySprite
+    }
+
+    draw() {
+        this.sprite.draw(this.x, this.y);
+        this.overlaySprite.draw(this.x, this.y);
+    }
+
+}
+
 // this is a class for the stone block. it may be unneccessary
 // for me to have a class for each type of solid, not sure
 class StoneBlock extends SolidWithSprite{
     constructor(x, y){
         super(x, y, sprStoneBlock);
+    }
+}
+
+// this is specifically for 1 tall mud and grass platforms
+// there are 3 different top, mid, grass overlays, so this will 
+// randomize the one that is chosen
+class GrassPlatform_Mid extends SolidWithSpriteAndOverlay{
+    constructor(x, y){
+        // random number between 0 and 2
+        let variant = Math.floor(Math.random() * 3);
+        var overlaySprite;
+        if (variant == 0){
+            overlaySprite = sprGrassOverlay_TopMid_1;
+        } else if (variant == 1){
+            overlaySprite = sprGrassOverlay_TopMid_2;
+        } else if (variant == 2){
+            overlaySprite = sprGrassOverlay_TopMid_3;
+        }
+        super(x, y, sprMudContinuous_BottomMid, overlaySprite);
     }
 }

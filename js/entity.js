@@ -258,3 +258,9 @@ class Player extends EntityWithSprite{
         }
     }
 }
+
+class Collectible extends EntityWithSprite{
+    constructor(x, y, sprite){
+        super(x, y, sprite);
+    }
+}
