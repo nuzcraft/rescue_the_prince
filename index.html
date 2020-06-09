@@ -57,6 +57,11 @@
 
     entities.push(player);
 
+    skull = new SkullCollectible(192, 240);
+    entities.push(skull);
+    goldSkull = new GoldSkullCollectible(240, 240);
+    entities.push(goldSkull);
+
     window.onload = function(){
         showTitle() // game.js
     }

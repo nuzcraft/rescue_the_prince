@@ -19,7 +19,7 @@ const player_acc = 1; // acceleration of a player (for both player controlled
 // movement as well as friction)
 
 
-// initialize some images
+// initialize some images, start with larger spritesheets
 imgCreatures = new Image();
 imgCreatures.src = 'images/oryx_16bit_fantasy_creatures_trans.png';
 imgWorld = new Image();
@@ -37,7 +37,7 @@ imgPrincessFalling.src = 'images/princess/princess_falling.png';
 
 // Sprite class defined in js/sprite.js
 // each creature sprite has 2 frames (labeled 1 and 2) in subsequent rows
-const sprPrincess1 = new Sprite(3, 12, 24, 24, imgCreatures, 2, 200); // this comes from the spritesheet, has animation
+const sprPrincess = new Sprite(3, 12, 24, 24, imgCreatures, 2, 200); // this comes from the spritesheet, has animation
 const sprPrincessLedgeGrab = new Sprite(0, 0, 24, 24, imgPrincessLedgeGrab); // this is a standalone image, no animation
 const sprPrincessJump = new Sprite(0, 0, 24, 24, imgPrincessJump);
 const sprPrincessFalling = new Sprite(0, 0, 24, 24, imgPrincessFalling);
@@ -51,12 +51,18 @@ const sprGrassOverlay_TopMid_1 = new Sprite(16, 48, 24, 24, imgWorld); // grass 
 const sprGrassOverlay_TopMid_2 = new Sprite(16, 52, 24, 24, imgWorld); // grass to overlay over platforms, this goes in the middle, on top, version 2
 const sprGrassOverlay_TopMid_3 = new Sprite(16, 53, 24, 24, imgWorld); // grass to overlay over platforms, this goes in the middle, on top, version 3
 
+// item sprites
+const sprSkull = new Sprite(7, 1, 16, 16, imgItems); // skull to be used as a collectible
+const sprGoldSkull = new Sprite(7, 3, 16, 16, imgItems); // golden skull to be used as a collectible
+
 // colors
 const color_white = "#ffffff";
 
 // global lists
 var entities = [];
 var solids = [];
+var skulls = 0;
+var goldskulls = 0;
 
 // global variables for keys
 const keyCodes = {"ArrowLeft":'left', "ArrowRight":'right', "ArrowUp":'up', "ArrowDown":'down',

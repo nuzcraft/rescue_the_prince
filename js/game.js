@@ -62,8 +62,13 @@ function tick() {
 
         draw() //game.js
 
-        // right now, the player is the only thing that will move each
-        // frame
+        // let all the entities tick *before* the player moves
+        for (let i = 0; i< entities.length; i++) {
+            if (entities[i] != player) {
+                entities[i].tick()
+            }
+        }
+        // let the player move
         player.tick();
     }
 }
@@ -77,7 +82,28 @@ function draw() {
         solids[i].draw();
     }
     
+    // draw all the entities, except the player
+    for (let i = 0; i < entities.length; i++) {
+        if (entities[i] !== player) {
+            entities[i].draw();
+        }        
+    }
+
+    // draw the player last
     player.draw(); 
+
+    // draw the ui
+    drawUI();
+}
+
+// this function will draw the ui
+function drawUI(){
+    // indicator of how many skulls have been collected
+    sprSkull.draw(0, 0);
+    drawText(":" + zeroFill(skulls, 3), 50, false, 40, 40, color_white, "", "normal", "", "monospace");
+
+    sprGoldSkull.draw(168, 0);
+    drawText(":" + goldskulls, 50, false, 204, 40, color_white, "", "normal", "", "monospace")
 }
 
 // this function will take x and y values of a coordinate and return
@@ -130,4 +156,15 @@ function keyUp(k) {
     if (gamestate == "running") {
         keys[keyCodes[k.key]] = 0;
     }
+}
+
+// this function will take a number and pad the front with zeroes up to the width
+function zeroFill(number, width)
+{
+    width -= number.toString().length;
+    if (width > 0)
+    {
+        return new Array(width + (/\./.test(number) ? 2 : 1)).join('0') + number;
+    }
+    return number + ""; // always return a string
 }

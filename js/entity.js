@@ -119,7 +119,7 @@ class EntityWithSprite extends Entity{
 
 class Player extends EntityWithSprite{
     constructor(x, y){
-        super(x, y, sprPrincess1);
+        super(x, y, sprPrincess);
         this.state = this.move_state;
         // this.facingRight = 0; // 0 for left, 1 for right
 
@@ -164,7 +164,7 @@ class Player extends EntityWithSprite{
             }
 
             // player is on the ground
-            this.sprite = sprPrincess1;
+            this.sprite = sprPrincess;
         }
 
         // horiz movement
@@ -262,5 +262,47 @@ class Player extends EntityWithSprite{
 class Collectible extends EntityWithSprite{
     constructor(x, y, sprite){
         super(x, y, sprite);
+    }
+
+    tick() {
+        // look around and see if the player is close enough for us to collect
+        if (player.leftX() <= this.rightX() &&
+        player.rightX() >= this.leftX() &&
+        player.topY() <= this.bottomY() &&
+        player.bottomY() >= this.topY()){
+            this.collect()
+        }
+    }
+
+    collect(){
+        // remove the collectible from the list of collectibles
+        for (let i = 0; i < entities.length; i++) {
+            if (entities[i] == this) {
+                entities.splice(i, 1);
+            }        
+        }        
+        console.log('collected');
+    }
+}
+
+class SkullCollectible extends Collectible{
+    constructor(x, y){
+        super(x, y, sprSkull);
+    }
+
+    collect(){
+        super.collect();
+        skulls += 1;
+    }
+}
+
+class GoldSkullCollectible extends Collectible{
+    constructor(x, y){
+        super(x, y, sprGoldSkull);
+    }
+
+    collect(){
+        super.collect();
+        goldskulls += 1;
     }
 }
