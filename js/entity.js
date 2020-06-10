@@ -95,7 +95,7 @@ class EntityWithSprite extends Entity{
         if (this.vSpeed > 0) { // moving down
             if (pointInSolid (this.centerX(), this.bottomY() + this.vSpeed)){
                 // if we're moving into a solid, need to make sure we don't overlap            
-                while (!pointInSolid(this.centerX(), this.bottomY() + 1)){ //edge it in one at a time
+                while (!pointInSolid(this.centerX(), this.bottomY()+1, true)){ //edge it in one at a time, check platforms too
                     this.y += 1;
                 }
                 this.vSpeed = 0;
@@ -132,7 +132,7 @@ class Player extends EntityWithSprite{
 
     move_state() {
         // check the lower bound of the entity
-        if (!pointInSolid(this.centerX(), this.bottomY() + 1)){
+        if (!pointInSolid(this.centerX(), this.bottomY() + 1, true)){
             // if point below the entity not in a solid, increase the vSpeed due to gravity
             this.vSpeed += gravity;
 

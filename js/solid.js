@@ -3,6 +3,7 @@ class Solid{
     constructor(x, y){
         this.x = x;
         this.y = y;
+        this.platform = false;
     }
 }
 
@@ -56,5 +57,12 @@ class GrassPlatform_Mid extends SolidWithSpriteAndOverlay{
             overlaySprite = sprGrassOverlay_TopMid_3;
         }
         super(x, y, sprMudContinuous_BottomMid, overlaySprite);
+    }
+}
+
+class Barrel extends SolidWithSprite{
+    constructor(x, y){
+        super(x, y, sprBarrel);
+        this.platform = true;
     }
 }

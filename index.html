@@ -38,6 +38,9 @@
     solids.push(new StoneBlock(10*48, 402));
     solids.push(new StoneBlock(10*48, 402-48));
 
+     // barrel(s)
+     solids.push(new Barrel(9*48, 402));
+
     // 2 blocks on the left
     solids.push(new StoneBlock(0*48, 402));
     solids.push(new StoneBlock(0*48, 402-48));
@@ -45,6 +48,7 @@
     // 2 blocks on the right
     solids.push(new StoneBlock(20*48, 402));
     solids.push(new StoneBlock(20*48, 402-48));
+
 
     for (i = 0; i < numTiles_x * tileSize; i+=48) {
         if ((i > 3*48 && i <= 6*48) || (i > 13*48 && i <= 16*48)){

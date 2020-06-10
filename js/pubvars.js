@@ -57,6 +57,8 @@ const sprGrassOverlay_TopMid_1 = new Sprite(16, 48, 24, 24, imgWorld); // grass 
 const sprGrassOverlay_TopMid_2 = new Sprite(16, 52, 24, 24, imgWorld); // grass to overlay over platforms, this goes in the middle, on top, version 2
 const sprGrassOverlay_TopMid_3 = new Sprite(16, 53, 24, 24, imgWorld); // grass to overlay over platforms, this goes in the middle, on top, version 3
 
+const sprBarrel = new Sprite(4, 39, 24, 24, imgWorld); // barrel
+
 // item sprites
 const sprSkull = new Sprite(7, 1, 16, 16, imgItems); // skull to be used as a collectible
 const sprGoldSkull = new Sprite(7, 3, 16, 16, imgItems); // golden skull to be used as a collectible

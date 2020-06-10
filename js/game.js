@@ -115,7 +115,9 @@ function drawUI(){
 
 // this function will take x and y values of a coordinate and return
 // whether the point is in a Solid
-function pointInSolid(x, y) {
+// platform is a property of a solid, if includePlatforms = false, it will exclude any
+// platforms from causing the function to return true
+function pointInSolid(x, y, includePlatforms=false) {
     // loop through all the solids
     for (let i = 0; i < solids.length; i++) {
         // check if the x coord is in the x of the solid
@@ -126,7 +128,9 @@ function pointInSolid(x, y) {
                 // check the y coord for a match
                 for (let k = solids[i].y; k <= solids[i].y + solids[i].sprite.draw_height; k++){
                     if (y == k){
-                        return true;
+                        if (includePlatforms == true || (includePlatforms == false && solids[i].platform == false)){
+                            return true;
+                        }
                     }
                 }
             }
