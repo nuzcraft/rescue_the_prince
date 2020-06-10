@@ -45,7 +45,7 @@ class Sprite {
                 (this.row + this.frame) * this.height, // y pos (top left) of sprite in sheet
                 this.width, // width of sprite (px)
                 this.height, // height of sprite (px)
-                canvas.width - x - this.draw_width, // x pos to draw to on canvas
+                canvas.width - x - this.draw_width - cameraX, // x pos to draw to on canvas
                 y, // y pos to draw to on canvas
                 this.draw_height, // new width to draw (from pubvars.js)
                 this.draw_width // new height to draw (from pubvars.js)

@@ -7,8 +7,8 @@ function setupCanvas() {
     canvas = document.querySelector("canvas");
     ctx = canvas.getContext("2d");
 
-    canvas.width = tileSize * numTiles_x;
-    canvas.height = tileSize * numTiles_y;
+    canvas.width = tileSize * cameraNumTiles_x;
+    canvas.height = tileSize * cameraNumTiles_y;
     canvas.style.width = canvas.width + 'px';
     canvas.style.height = canvas.height + 'px';
     ctx.imageSmoothingEnabled = false;
@@ -75,7 +75,14 @@ function tick() {
 
 // this function will draw the the stuff on the screen
 function draw() {
+    ctx.setTransform(1,0,0,1,0,0);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // update the camera location to move with the player
+    cameraX = -clamp(player.x + -canvas.width / 2, 0, levelWidth - canvas.width);
+    cameraY = -clamp(player.y + -canvas.height / 2, 0, levelHeight - canvas.height);
+
+    ctx.translate(cameraX, cameraY);
 
     // draw all the solids
     for (let i = 0; i < solids.length; i++) {
@@ -167,4 +174,11 @@ function zeroFill(number, width)
         return new Array(width + (/\./.test(number) ? 2 : 1)).join('0') + number;
     }
     return number + ""; // always return a string
+}
+
+// clamp will return the value as long as it is between the min and max
+function clamp(value, min, max){
+    if (value <  min) return min;
+    else if (value > max) return max;
+    return value;
 }

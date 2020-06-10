@@ -8,8 +8,14 @@ var gameclock = 0; // also in ms
 
 // initialize some variables
 const tileSize = 48; // pixels tall and wide for a tile
-const numTiles_x = 21; // tiles wide for the game area
+const cameraNumTiles_x = 21
+const cameraNumTiles_y = 11
+const numTiles_x = 29; // tiles wide for the game area
 const numTiles_y = 11; // tiles tall for the game area
+const levelWidth = tileSize * numTiles_x
+const levelHeight = tileSize * numTiles_y
+var cameraX = 0;
+var cameraY = 0;
 const spriteSize = 24; // num of pixels in an actual sprite (not a tile)
 
 const gravity = 1; // this is an accelleration in the -y direction
