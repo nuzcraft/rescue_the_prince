@@ -109,7 +109,7 @@ class EntityWithSprite extends Entity{
             }
         } else if (this.vSpeed == 0){// on a surface
             // make sure we aren't sunk into the floor
-            while(pointInSolid(this.centerX(), this.bottomY())){
+            while(pointInSolid(this.centerX(), this.bottomY(), true)){
                 this.y -= 1;
             }
         }
