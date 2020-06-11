@@ -21,11 +21,13 @@
 <script src="js/game.js"></script>
 
 <script>
-    console.log('Hello World. You must Rescue the Prince. 🤴');
+    log('Hello World. You must Rescue the Prince. 🤴', 0, true);
 
     // gamestate will be used to run the game; filter specific keypresses
     gamestate = "loading";
 
+    //TODO move these into start game so that we can restart if we hit an error
+    //TODO will need an additional function to reset the public variables we use for a new game
     // lets create a floor of StoneBlocks + some walls
     for (i = 0; i < numTiles_x * tileSize; i+=48) {
         // var stone = new StoneBlock(i, 450);

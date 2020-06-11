@@ -16,7 +16,15 @@ class SolidWithSprite extends Solid{
     }
 
     draw(){
-        this.sprite.draw(this.x, this.y);
+        log('solid.js.SolidWithSprite.draw initialized', 1);
+        try {
+            this.sprite.draw(this.x, this.y);
+        }
+        catch(e){
+            log(e.message, 3);
+            // on fatal error, return to title screen
+            showTitle();
+        }
     }
 }
 
@@ -27,8 +35,16 @@ class SolidWithSpriteAndOverlay extends SolidWithSprite{
     }
 
     draw() {
-        this.sprite.draw(this.x, this.y);
-        this.overlaySprite.draw(this.x, this.y);
+        log('solid.js.SolidWithSpriteAndOverlay.draw initialized', 1);
+        try {
+            this.sprite.draw(this.x, this.y);
+            this.overlaySprite.draw(this.x, this.y);
+        }
+        catch(e){
+            log(e.message, 3);
+            // on fatal error, return to title screen
+            showTitle();
+        }
     }
 
 }

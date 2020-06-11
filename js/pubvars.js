@@ -1,6 +1,8 @@
 
 // debug mode? used to toggle debug messages?
-const debugMode = true;
+var debugMode = true;
+var logThreshold = 2; // at 2, will show warnings and errors, but not info or logs
+// unless the output is forced
 
 // gameclock used to count the number of ms that have passed
 const tickInterval = 15 // ms
