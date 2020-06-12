@@ -354,8 +354,8 @@ try {
     module.exports.clamp = clamp;
     module.exports.log = log;
     module.exports.zeroFill = zeroFill;
-    module.exports.showTitle = showTitle;
-    module.exports.pointInSolid = pointInSolid;
+    // module.exports.showTitle = showTitle;
+    // module.exports.pointInSolid = pointInSolid;
 }
 catch (err) {
     // do nothing if this throws an error
