@@ -1,0 +1,17 @@
+{
+  "devDependencies": {
+    "jest": "^26.0.1"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.0"
+  },
+  "jest": {
+    "globals": {
+      "debugMode": false,
+      "logThreshold": 2
+    }
+  }
+}

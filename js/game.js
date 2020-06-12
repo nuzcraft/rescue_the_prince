@@ -1,5 +1,4 @@
 /// This file holds the majority of the game-wide logic
-
 function setupCanvas() {
     log('game.js.setupCanvas initialized', 1);
     try {
@@ -251,13 +250,25 @@ function keyUp(k) {
 }
 
 // this function will take a number and pad the front with zeroes up to the width
+/**
+ * @param {number} number
+ * @param {number} width
+ */
 function zeroFill(number, width){
     log('game.js.zeroFill initialized', 1);
     try {
+        // check parameters to make sure they are numbers
+        if (typeof(number) != 'number' || typeof(width) != 'number'){
+            throw new TypeError('all parameters must be numbers');
+        }
+        // make sure the number is at least as big as the width
+        if (number.toString().length > width) {
+            throw new Error('number must be smaller than width');
+        }
         width -= number.toString().length;
         if (width > 0)
         {
-            return new Array(width + (/\./.test(number) ? 2 : 1)).join('0') + number;
+            return new Array(width + (/\./.test(number.toString()) ? 2 : 1)).join('0') + number;
         }
         return number + ""; // always return a string
     }
@@ -265,13 +276,27 @@ function zeroFill(number, width){
         log(e.message, 3);
         // on fatal error, return to title screen
         showTitle();
+        // signal that the function failed
+        return false;
     }
 }
 
 // clamp will return the value as long as it is between the min and max
+/**
+ * @param {number} value
+ * @param {number} min
+ * @param {number} max
+ */
 function clamp(value, min, max){
     log('game.js.clamp initialized', 1);
     try {
+        // check parameter types
+        if (typeof(value) != 'number' || 
+            typeof(min) != 'number' ||
+            typeof(max) != 'number'){
+            throw new TypeError("all parameters must be numbers");
+        }
+        // perform the actual calculation
         if (value <  min) return min;
         else if (value > max) return max;
         return value;;
@@ -280,33 +305,58 @@ function clamp(value, min, max){
         log(e.message, 3);
         // on fatal error, return to title screen
         showTitle();
+        // signal that the function failed
+        return false;
     }
 }
 
 // take into account the debug mode and severity to output things to the console
+/**
+ * @param {string} message
+ * @param {number} severity
+ */
 function log(message, severity, forceOutput=false){
     // message is a string, severity is an integer, forceOutput will override the debug mode an force the output
+    let displayedMessage = '';
     switch (severity) {
         case 0: // log
             if ((debugMode && severity >= logThreshold) || forceOutput) {
                 console.log(message);
+                displayedMessage = message;
             }
             break;
         case 1: // info
             if ((debugMode && severity >= logThreshold) || forceOutput) {
                 console.info(message);
+                displayedMessage = message;
             }
             break;
         case 2: // warning
             if ((debugMode && severity >= logThreshold) || forceOutput) {
                 console.warn(message);
+                displayedMessage = message;
             }
             break;
         case 3: // error - always output
             console.error(message);
+            displayedMessage = message;
             break;
         default: // oops, we put in something different, default to log and force output
             console.log(message);
+            displayedMessage = message;
             break;
     }
+    return displayedMessage
+}
+
+// set up our unit tests by exporting our functions
+try {
+    module.exports.clamp = clamp;
+    module.exports.log = log;
+    module.exports.zeroFill = zeroFill;
+    module.exports.showTitle = showTitle;
+    module.exports.pointInSolid = pointInSolid;
+}
+catch (err) {
+    // do nothing if this throws an error
 }
