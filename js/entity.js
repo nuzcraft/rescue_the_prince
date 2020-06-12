@@ -1,6 +1,3 @@
-import {log, showTitle, pointInSolid} from "./game";
-import { tileSize, sprPrincess, gravity, sprPrincessFalling, sprPrincessJump, keys, maxVSpeed, player_acc, maxHSpeed, sprPrincessLedgeGrab, player, entities, sprSkull, skulls, sprGoldSkull, goldskulls } from "./pubvars";
-
 // this class will hold all entity-wide functions
 class Entity{
     constructor(x, y){

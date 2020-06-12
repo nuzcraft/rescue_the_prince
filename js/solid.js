@@ -1,6 +1,3 @@
-import { log, showTitle } from "./game";
-import { sprStoneBlock, sprGrassOverlay_TopMid_1, sprGrassOverlay_TopMid_2, sprGrassOverlay_TopMid_3, sprMudContinuous_BottomMid, sprBarrel } from "./pubvars";
-
 // things like collisions can be defined in the solid class
 class Solid{
     constructor(x, y){

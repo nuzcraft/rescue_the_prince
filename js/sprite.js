@@ -1,11 +1,8 @@
 // I'm choosing to do this via (row, index).
 // 18 images per row for creature, 53? for world
 
-import { log, showTitle } from "./game";
-import { tileSize, gameclock, ctx, canvas, cameraX } from "./pubvars";
-
 // both rows and indexes are 1-indexed (start with 1 as first entry)
-export default class Sprite {
+class Sprite {
     constructor(row, index, width, height, spritesheet, numFrames=1, animationSpeed=0
             , draw_width=tileSize, draw_height=tileSize) {
         this.row = row;
