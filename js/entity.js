@@ -14,7 +14,104 @@ class Entity{
         this.maskHeight = tileSize;
     }
 
+    // returns the center x coord of the the entity
+    centerX(){
+        // @ts-ignore
+        log('entity.js.Entity.centerX initialized', 1);
+        try {
+            return this.leftX() + Math.floor(this.maskWidth / 2);
+        }
+        catch(e){
+            // @ts-ignore
+            log(e.message, 3);
+            // on fatal error, return to title screen
+            // @ts-ignore
+            showTitle();
+        }
+    }
+
+    // returns the center y coord of the entity
+    centerY(){
+        // @ts-ignore
+        log('entity.js.Entity.centerY initialized', 1);
+        try {
+            return this.topY() + Math.floor(this.maskHeight / 2);
+        }
+        catch(e){
+            // @ts-ignore
+            log(e.message, 3);
+            // on fatal error, return to title screen
+            // @ts-ignore
+            showTitle();
+        }
+    }
+
+    // returns the bottom y coord of the entity
+    bottomY(){
+        // @ts-ignore
+        log('entity.js.Entity.bottomY initialized', 1);
+        try {
+            return this.topY() + this.maskHeight - 1;
+        }
+        catch(e){
+            // @ts-ignore
+            log(e.message, 3);
+            // on fatal error, return to title screen
+            // @ts-ignore
+            showTitle();
+        }
+    }
+
+    // returns the top y coord of the entity, with mask offset taken into account
+    topY(){
+        // @ts-ignore
+        log('entity.js.Entity.topY initialized', 1);
+        try {
+            return this.y + this.maskYOffset;
+        }
+        catch(e){
+            // @ts-ignore
+            log(e.message, 3);
+            // on fatal error, return to title screen
+            // @ts-ignore
+            showTitle();
+        }
+    }
+
+    // returns the right x coord of the entity
+    rightX(){
+        // @ts-ignore
+        log('entity.js.Entity.rightX initialized', 1);
+        try {
+            return this.leftX() + this.maskWidth - 1;
+        }
+        catch(e){
+            // @ts-ignore
+            log(e.message, 3);
+            // on fatal error, return to title screen
+            // @ts-ignore
+            showTitle();
+        }
+    }
+
+    // returns the left x cooord, with mask taken into account
+    leftX(){
+        // @ts-ignore
+        log('entity.js.Entity.leftX initialized', 1);
+        try {
+            return this.x + this.maskXOffset;
+        }
+        catch(e){
+            // @ts-ignore
+            log(e.message, 3);
+            // on fatal error, return to title screen
+            // @ts-ignore
+            showTitle();
+        }
+    }
+
     tick() {
+        // @ts-ignore
         log('entity.js.Entity.tick initialized', 1);
         try {
             this.xPrevious = this.x;
@@ -22,8 +119,10 @@ class Entity{
             this.state();
         }
         catch(e){
+            // @ts-ignore
             log(e.message, 3);
             // on fatal error, return to title screen
+            // @ts-ignore
             showTitle();
         }
     }
@@ -38,119 +137,51 @@ class EntityWithSprite extends Entity{
         this.xScale = 1; // 1 for left facing; -1 for right facing
     }
 
-    // returns the center x coord of the the entity
-    centerX(){
-        log('entity.js.EntityWithSprite.centerX initialized', 1);
-        try {
-            return this.leftX() + Math.floor(this.maskWidth / 2);
-        }
-        catch(e){
-            log(e.message, 3);
-            // on fatal error, return to title screen
-            showTitle();
-        }
-    }
-
-    // returns the center y coord of the entity
-    centerY(){
-        log('entity.js.EntityWithSprite.centerY initialized', 1);
-        try {
-            return this.topY() + Math.floor(this.maskHeight / 2);
-        }
-        catch(e){
-            log(e.message, 3);
-            // on fatal error, return to title screen
-            showTitle();
-        }
-    }
-
-    // returns the bottom y coord of the entity
-    bottomY(){
-        log('entity.js.EntityWithSprite.bottomY initialized', 1);
-        try {
-            return this.topY() + this.maskHeight - 1;
-        }
-        catch(e){
-            log(e.message, 3);
-            // on fatal error, return to title screen
-            showTitle();
-        }
-    }
-
-    // returns the top y coord of the entity, with mask offset taken into account
-    topY(){
-        log('entity.js.EntityWithSprite.topY initialized', 1);
-        try {
-            return this.y + this.maskYOffset;
-        }
-        catch(e){
-            log(e.message, 3);
-            // on fatal error, return to title screen
-            showTitle();
-        }
-    }
-
-    // returns the right x coord of the entity
-    rightX(){
-        log('entity.js.EntityWithSprite.rightX initialized', 1);
-        try {
-            return this.leftX() + this.maskWidth - 1;
-        }
-        catch(e){
-            log(e.message, 3);
-            // on fatal error, return to title screen
-            showTitle();
-        }
-    }
-
-    // returns the left x cooord, with mask taken into account
-    leftX(){
-        log('entity.js.EntityWithSprite.leftX initialized', 1);
-        try {
-            return this.x + this.maskXOffset;
-        }
-        catch(e){
-            log(e.message, 3);
-            // on fatal error, return to title screen
-            showTitle();
-        }
-    }
-
     draw(){
+        // @ts-ignore
         log('entity.js.EntityWithSprite.draw initialized', 1);
         try {
             this.sprite.draw(this.x, this.y, this.xScale);
         }
         catch(e){
+            // @ts-ignore
             log(e.message, 3);
             // on fatal error, return to title screen
+            // @ts-ignore
             showTitle();
         }
     }
 
     move() {
+        // @ts-ignore
         log('entity.js.EntityWithSprite.move initialized', 1);
         try {
             // horizontal collisions
             if (this.hSpeed > 0) { // moving right
+                // @ts-ignore
                 if (pointInSolid (this.rightX() + this.hSpeed, this.centerY())){
                     // if we're moving into a solid, need to make sure we don't overlap            
+                    // @ts-ignore
                     while (!pointInSolid(this.rightX() + 1, this.centerY())){ //edge it in one at a time
                         this.x += 1;
                     }
                     this.hSpeed = 0;
                 }
             } else if (this.hSpeed < 0) { // moving left
+                // @ts-ignore
                 if (pointInSolid (this.leftX() + this.hSpeed, this.centerY())){
+                    // @ts-ignore
                     while (!pointInSolid(this.leftX() - 1, this.centerY())){
                         this.x -= 1;
                     }
                     this.hSpeed = 0;
                 }
             } else if (this.hSpeed == 0){// not moving left or rightd
+                // @ts-ignore
                 while (pointInSolid(this.leftX(), this.centerY())){
                     this.x += 1;
                 }
+                // @ts-ignore
                 while (pointInSolid(this.rightX(), this.centerY())){
                     this.x -= 1;
                 }
@@ -159,15 +190,20 @@ class EntityWithSprite extends Entity{
 
             // vertical collisions
             if (this.vSpeed > 0) { // moving down
-                if (pointInSolid (this.centerX(), this.bottomY() + this.vSpeed)){
+                // we use the no mask version here because platforms can be very small
+                // @ts-ignore
+                if (pointInSolidNoMask(this.centerX(), this.bottomY() + this.vSpeed, true)){
                     // if we're moving into a solid, need to make sure we don't overlap            
+                    // @ts-ignore
                     while (!pointInSolid(this.centerX(), this.bottomY()+1, true)){ //edge it in one at a time, check platforms too
                         this.y += 1;
                     }
                     this.vSpeed = 0;
                 }
             } else if (this.vSpeed < 0) { // moving up
+                // @ts-ignore
                 if (pointInSolid (this.centerX(), this.topY() + this.vSpeed)){
+                    // @ts-ignore
                     while (!pointInSolid(this.centerX(), this.topY() - 1)){
                         this.y -= 1;
                     }
@@ -175,15 +211,18 @@ class EntityWithSprite extends Entity{
                 }
             } else if (this.vSpeed == 0){// on a surface
                 // make sure we aren't sunk into the floor
-                while(pointInSolid(this.centerX(), this.bottomY(), true)){
+                // @ts-ignore
+                while(pointInSolid(this.centerX(), this.bottomY())){
                     this.y -= 1;
                 }
             }
             this.y += this.vSpeed;  
             }
         catch(e){
+            // @ts-ignore
             log(e.message, 3);
             // on fatal error, return to title screen
+            // @ts-ignore
             showTitle();
         }
     }
@@ -203,9 +242,11 @@ class Player extends EntityWithSprite{
     }
 
     move_state() {
+        // @ts-ignore
         log('entity.js.Player.move_state initialized', 1);
         try {
             // check the lower bound of the entity
+            // @ts-ignore
             if (!pointInSolid(this.centerX(), this.bottomY() + 1, true)){
                 // if point below the entity not in a solid, increase the vSpeed due to gravity
                 this.vSpeed += gravity;
@@ -235,6 +276,26 @@ class Player extends EntityWithSprite{
                 // jump control
                 if (keys.up){
                     this.vSpeed = -16;
+                }
+
+                // if standing on a platform, allow us to press the down button to move down
+                // below the platform
+                if (keys.down){
+                    // check to see if we are on a solid or platform
+                    // we've already determined were on something...the false will show we are on 
+                    // a platform
+                    console.log('keydown pressed');
+                    // @ts-ignore
+                    if (!pointInSolid(this.centerX(), this.bottomY() + 1, false)){
+                        // move the player down into the platform bounding box
+                        // TODO: make this more dynamic instead of assuming all platforms are 1 px tall
+                        this.y += 2;
+                        // use a loop to move the player below the mask of the platform
+                        // @ts-ignore
+                        // while (pointInSolid(this.centerX(), this.bottomY(), true)){
+                        //     this.y += 1;
+                        // }
+                    }
                 }
 
                 // player is on the ground
@@ -276,13 +337,17 @@ class Player extends EntityWithSprite{
             var wasntWall, isWall;
             if (this.xScale == -1){ // facing right
                 // check 3 pixels to the right of the previous y
+                // @ts-ignore
                 wasntWall = !pointInSolid(this.rightX() + 2, this.yPrevious + this.maskYOffset + Math.floor(this.maskHeight / 2));
                 // check 3 pixels to the right of the current y
+                // @ts-ignore
                 isWall = pointInSolid(this.rightX() + 2, this.centerY());
             } else { // facing left
                 // check 3 pixels to the left of the previous y
+                // @ts-ignore
                 wasntWall = !pointInSolid(this.leftX() - 2, this.yPrevious + this.maskYOffset + Math.floor(this.maskHeight / 2));
                 // check 3 pixels to the right of the current y
+                // @ts-ignore
                 isWall = pointInSolid(this.leftX() - 2, this.centerY());
             }
 
@@ -293,22 +358,28 @@ class Player extends EntityWithSprite{
 
                 // make sure we're butted up against the wall
                 if (this.xScale == -1){ // facing right
+                    // @ts-ignore
                     while (!pointInSolid(this.rightX() + 1, this.centerY())){
                         this.x += 1;
                     }
+                    // @ts-ignore
                     while (pointInSolid(this.rightX(), this.centerY())){
                         this.x -= 1;
                     }
+                    // @ts-ignore
                     while (pointInSolid(this.rightX() + 1, this.topY() - 1)){
                         this.y -= 1;
                     }         
                 } else { // facing left
+                    // @ts-ignore
                     while (!pointInSolid(this.leftX() - 1, this.centerY())){
                         this.x -= 1;
                     }
+                    // @ts-ignore
                     while (pointInSolid(this.leftX(), this.centerY())){
                         this.x += 1;
                     }
+                    // @ts-ignore
                     while (pointInSolid(this.leftX() - 1, this.topY() - 1)){
                         this.y -= 1;
                     }
@@ -318,13 +389,16 @@ class Player extends EntityWithSprite{
             }
         }
         catch(e){
+            // @ts-ignore
             log(e.message, 3);
             // on fatal error, return to title screen
+            // @ts-ignore
             showTitle();
         }
     }
 
     ledgeGrab_state(){
+        // @ts-ignore
         log('entity.js.Player.ledgeGrab_state initialized', 1);
         try {
             // super simple state, we hover (no gravity)
@@ -340,11 +414,14 @@ class Player extends EntityWithSprite{
             }
         }
         catch(e){
+            // @ts-ignore
             log(e.message, 3);
             // on fatal error, return to title screen
+            // @ts-ignore
             showTitle();
         }
     }
+
 }
 
 class Collectible extends EntityWithSprite{
@@ -353,6 +430,7 @@ class Collectible extends EntityWithSprite{
     }
 
     tick() {
+        // @ts-ignore
         log('entity.js.Collectible.tick initialized', 1);
         try {
             // look around and see if the player is close enough for us to collect
@@ -364,13 +442,16 @@ class Collectible extends EntityWithSprite{
             }
         }
         catch(e){
+            // @ts-ignore
             log(e.message, 3);
             // on fatal error, return to title screen
+            // @ts-ignore
             showTitle();
         }
     }
 
     collect(){
+        // @ts-ignore
         log('entity.js.Collectible.collect initialized', 1);
         try {
             // remove the collectible from the list of collectibles
@@ -381,8 +462,10 @@ class Collectible extends EntityWithSprite{
             } 
         }
         catch(e){
+            // @ts-ignore
             log(e.message, 3);
             // on fatal error, return to title screen
+            // @ts-ignore
             showTitle();
         }       
     }
@@ -394,14 +477,17 @@ class SkullCollectible extends Collectible{
     }
 
     collect(){
+        // @ts-ignore
         log('entity.js.SkullCollectible.collect initialized', 1);
         try {
             super.collect();
             skulls += 1;
         }
         catch(e){
+            // @ts-ignore
             log(e.message, 3);
             // on fatal error, return to title screen
+            // @ts-ignore
             showTitle();
         }
     }
@@ -413,14 +499,17 @@ class GoldSkullCollectible extends Collectible{
     }
 
     collect(){
+        // @ts-ignore
         log('entity.js.GoldSkullCollectible.collect initialized', 1);
         try {
             super.collect();
             goldskulls += 1;
         }
         catch(e){
+            // @ts-ignore
             log(e.message, 3);
             // on fatal error, return to title screen
+            // @ts-ignore
             showTitle();
         }
     }

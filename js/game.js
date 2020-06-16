@@ -157,6 +157,8 @@ function drawUI(){
 // whether the point is in a Solid
 // platform is a property of a solid, if includePlatforms = false, it will exclude any
 // platforms from causing the function to return true
+//TODO - make a version of this / additional bit so that 
+// we can check _either_ the full square _or_ the mask
 function pointInSolid(x, y, includePlatforms=false) {
     log('game.js.pointInSolid initialized', 1);
     try {
@@ -164,11 +166,42 @@ function pointInSolid(x, y, includePlatforms=false) {
         for (let i = 0; i < solids.length; i++) {
             // check if the x coord is in the x of the solid
             // leans on solid.x and solid.sprite.width
-            for (let j = solids[i].x; j <= solids[i].x + solids[i].sprite.draw_width; j++){
+            for (let j = solids[i].leftX(); j <= solids[i].rightX(); j++){
                 // if the x coords match, check the y
                 if (x == j){
                     // check the y coord for a match
-                    for (let k = solids[i].y; k <= solids[i].y + solids[i].sprite.draw_height; k++){
+                    for (let k = solids[i].topY(); k <= solids[i].bottomY(); k++){
+                        if (y == k){
+                            if (includePlatforms == true || (includePlatforms == false && solids[i].platform == false)){
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    catch(e){
+        log(e.message, 3);
+        // on fatal error, return to title screen
+        showTitle();
+    }
+}
+
+// for some purposes, its best to check the entire 48x48 section
+function pointInSolidNoMask(x, y, includePlatforms=false) {
+    log('game.js.pointInSolid initialized', 1);
+    try {
+        // loop through all the solids
+        for (let i = 0; i < solids.length; i++) {
+            // check if the x coord is in the x of the solid
+            // leans on solid.x and solid.sprite.width
+            for (let j = solids[i].x; j <= solids[i].x + tileSize; j++){
+                // if the x coords match, check the y
+                if (x == j){
+                    // check the y coord for a match
+                    for (let k = solids[i].y; k <= solids[i].y + tileSize; k++){
                         if (y == k){
                             if (includePlatforms == true || (includePlatforms == false && solids[i].platform == false)){
                                 return true;

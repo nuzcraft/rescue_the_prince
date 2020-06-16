@@ -22,6 +22,7 @@ class Sprite {
     // meaning that x and y are  not based on tilesize at all
     //ctx.setTransform(1, 0, 0, 1, 0, 0) // (horiz scaling, vert skewing, horiz skewing, vert scaling, x origin, y origin)
     draw(x, y, xScale=1){
+        // @ts-ignore
         log('sprite.js.Sprite.draw initialized', 1);
         try {
             // before we handle scale, let's handle animation...
@@ -69,8 +70,10 @@ class Sprite {
             }
         }
         catch(e){
+            // @ts-ignore
             log(e.message, 3);
             // on fatal error, return to title screen
+            // @ts-ignore
             showTitle();
         }
     }
